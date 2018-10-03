@@ -9,6 +9,14 @@ const jwt = require('jsonwebtoken');
 const exjwt = require('express-jwt');
 var mysql = require('mysql');
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.setHeader('Access-Control-Allow-Headers', 'Content-type,Authorization');
+//    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+
 var genRandomString = function(length){
   return crypto.randomBytes(Math.ceil(length/2))
           .toString('hex')

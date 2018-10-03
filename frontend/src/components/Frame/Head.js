@@ -1,20 +1,38 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import AppBar from "material-ui/AppBar";
 import Toolbar from "material-ui/Toolbar";
 import Typography from "material-ui/Typography";
 import IconButton from "material-ui/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Menu, { MenuItem } from "material-ui/Menu";
-import { Link } from "react-router-dom";
+import { Link, BrowserRouter } from "react-router-dom";
 import ButtonBase from "material-ui/ButtonBase";
 import Button from "material-ui/Button";
 import Grid from "material-ui/Grid";
 import HeadIcon from "@material-ui/icons/Public";
+import AuthService from "../Main/AuthService";
+const Auth = new AuthService();
 
 class Head extends React.Component {
-  state = {
+  constructor(props)
+  {
+    super(props);
+    this.state = {
     auth: true,
     anchorEl: null
+    };
+  }
+  
+  static contextTypes = {
+    router: PropTypes.object,
+  }
+
+  handleLogout = (event) => {
+    Auth.logout();
+    this.context.router.history.push('/');
+//    window.location='/';
+//      <Route exact path='/'/>
   };
 
   handleChange = (event, checked) => {
@@ -81,6 +99,8 @@ class Head extends React.Component {
                 >
                   <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                   <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                  <MenuItem button component={Link} to="/login">Login/Register</MenuItem>
+                  <MenuItem button onClick={this.handleLogout.bind(this)}>Logout</MenuItem>
                 </Menu>
               </div>
             )}

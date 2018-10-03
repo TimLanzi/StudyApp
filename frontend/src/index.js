@@ -4,13 +4,16 @@
 */
 
 import React from "react";
-import { render } from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import ReactDOM from "react-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import Frame from "./components/Frame";
+import Login from "./components/Main/Login";
 
-render(
+ReactDOM.render(
   <BrowserRouter>
-    <Frame />
+    <div>
+      <Frame />
+    </div>
   </BrowserRouter>,
   document.getElementById("root")
 );

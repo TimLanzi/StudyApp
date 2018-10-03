@@ -9,8 +9,16 @@ import PracticeQ from "./Main/StudyTools/Usage/Practice";
 import React from "react";
 import requireAuth from "../utils/requireAuth";
 import { Route } from "react-router-dom";
+//import AuthService from "./Main/AuthService";
+//import withAuth from "./Main/withAuth";
+//const Auth = new AuthService();
 
 class Main extends React.Component {
+   constructor(props)
+   {
+       super(props);
+   }
+   
   render() {
     const { classes } = this.props;
     return (
@@ -33,7 +41,7 @@ class Main extends React.Component {
           path="/practiceQ"
           render={() => <PracticeQ classes={classes} />}
         />
-        <Route path="/login" render={() => <Login classes={classes} />} />
+        <Route path="/login" render={() => <Login history={this.props.history} classes={classes} />} />
         <Route path="/logout" />
         <Route path="/checkout" />
       </div>
