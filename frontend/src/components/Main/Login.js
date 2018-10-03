@@ -8,6 +8,7 @@ import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import Card, {CardActions, CardContent} from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
+import FormLabel from '@material-ui/core/FormLabel';
 import AuthService from "./AuthService";
 
 const styles = theme => ({
@@ -22,6 +23,9 @@ const styles = theme => ({
 class Login extends React.Component {
   constructor() {
     super();
+    this.state = {
+      front: true   // true = login side : false = register side
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.Auth = new AuthService("http://165.227.198.233:3001");
@@ -31,6 +35,10 @@ class Login extends React.Component {
     router: PropTypes.object
   }
 
+  toggleSide = () => {
+    this.setState({ front: this.state.front ? false : true });
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -38,7 +46,7 @@ class Login extends React.Component {
         <div className={classes.toolbar} margin-top="-100px" />
         <Paper className={classes.paper}>
           <Typography noWrap>
-            <h1>Login</h1>
+            <h1>{this.state.front ? "Login" : "Register"}</h1>
             <form>
               <TextField
                 placeHolder="Enter Username"
@@ -57,6 +65,12 @@ class Login extends React.Component {
               />
               <br/>
               <Button primary={true} onClick={this.handleFormSubmit}>Submit</Button>
+              <br/>
+              <br/>
+              <FormLabel component="legend">
+                Don't have an account? Click here to register!
+              </FormLabel>
+              <Button primary={true} onClick={this.toggleSide}>Register Now</Button>
             </form>
           </Typography>
         </Paper>
