@@ -139,14 +139,9 @@ app.use(function (err, req, res, next){
 });
 
 app.post("/register", (req, res) => {
-  var data = saltHashPassword(req.body.password);
-  var user = {
-    'username': req.body.username,
-    'salt': data.salt,
-    'hash': data.hash
-  };
+  console.log('Attempting to Register',req.body.username);
   connection.query(
-    "INSERT INTO users SET ?", user,
+    "SELECT * FROM users WHERE username = ?", req.body.username,
     function(err, rows, fields)
     {
       if(err)
@@ -157,12 +152,49 @@ app.post("/register", (req, res) => {
       else
       {
         console.log("No errors occured");
-        console.log(rows);
-        let token = jwt.sign({username: req.body.username}, 'keyboard cat 4ever', {expiresIn: 129600});
-        res.json({success:true, err:null, token});
+        if (rows.length > 0)
+        {
+            console.log('User already registered');
+            res.status(401).json({
+            sucess:false,
+            token:null,
+            err:'Username already registered'
+          });
+        }
+        else
+        {
+            console.log('Successfully picked unique username');
+
+            var data = saltHashPassword(req.body.password);
+            var user = {
+              'username': req.body.username,
+              'salt': data.salt,
+              'hash': data.hash
+            };
+            connection.query(
+              "INSERT INTO users SET ?", user,
+              function(err, rows, fields)
+              {
+                if(err)
+                {
+                  console.log("An error occured while trying to add user");
+                  console.log(err);
+                }
+                else
+                {
+                  console.log("No errors occured while inserting user onto table");
+                  console.log(rows);
+                  let token = jwt.sign({username: req.body.username}, 'keyboard cat 4ever', {expiresIn: 129600});
+                  res.json({success:true, err:null, token});
+                }
+              });
+ 
+        }
       }
+    }
+  );
+
     });
-  });
 
 
 app.get("/getProblem/:id", (req, res) => {

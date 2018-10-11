@@ -41,12 +41,14 @@ class Login extends React.Component {
 
   render() {
     const { classes } = this.props;
+    /* Login block */
+    if (this.state.front) {
     return (
       <main className={classes.content} Style="styles">
         <div className={classes.toolbar} margin-top="-100px" />
         <Paper className={classes.paper}>
           <Typography noWrap>
-            <h1>{this.state.front ? "Login" : "Register"}</h1>
+            <h1>Login</h1>
             <form>
               <TextField
                 placeHolder="Enter Username"
@@ -76,6 +78,54 @@ class Login extends React.Component {
         </Paper>
       </main>
     );
+    }
+    /* Register block */
+    else
+    {
+     return (
+      <main className={classes.content} Style="styles">
+        <div className={classes.toolbar} margin-top="-100px" />
+        <Paper className={classes.paper}>
+          <Typography noWrap>
+            <h1>Register</h1>
+            <form>
+              <TextField
+                placeHolder="Enter Username"
+                name="username"
+                type="text"
+                label="Username"
+                onChange={this.handleChange}
+              />
+              <br/>
+              <TextField
+                placeHolder="Enter Password"
+                name="password"
+                type="password"
+                label="Password"
+                onChange={this.handleChange}
+              />
+              <br/>
+              <TextField
+                placeHolder="Verify Password"
+                name="passwordCheck"
+                type="password"
+                label="Verify Password"
+                onChange={this.handleChange}
+              />
+              <br/>
+              <Button primary={true} onClick={this.handleFormSubmit}>Submit</Button>
+              <br/>
+              <br/>
+              <FormLabel component="legend">
+                Have an account? Click here to login!
+              </FormLabel>
+              <Button primary={true} onClick={this.toggleSide}>Login Now</Button>
+            </form>
+          </Typography>
+        </Paper>
+      </main>
+    );
+    }
   }
 
   componentWillMount() {
@@ -86,7 +136,9 @@ class Login extends React.Component {
 
   handleFormSubmit(e) {
     e.preventDefault();
-
+    /* Login block */
+    if (this.state.front === true)
+    {
     this.Auth.login(this.state.username, this.state.password)
       .then(res => {
         this.context.router.history.push("/");
@@ -94,6 +146,29 @@ class Login extends React.Component {
       .catch(err => {
         alert(err);
       });
+    }
+    /* Register block */
+    else
+    {
+      if (!this.state.username || !this.state.password || !this.state.passwordCheck)
+      {
+        alert("One or more required fields are not filled in");
+      }
+      else if (this.state.password != this.state.passwordCheck)
+      {
+        alert("Passwords do not match");
+      }
+      else
+      {
+        this.Auth.register(this.state.username, this.state.password)
+          .then(res => {
+            this.context.router.history.push("/");
+          })
+          .catch(err => {
+            alert("User already registered");
+          });
+      }
+    }
   }
 
   handleChange(e) {

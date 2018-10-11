@@ -21,6 +21,20 @@ export default class AuthService {
     });
   }
 
+  register(username, password) {
+    console.log("Attempting to register ", this.domain, username, password);
+    return this.fetch(`${this.domain}/register`, {
+      method: "POST",
+      body: JSON.stringify({
+        username,
+        password,
+      })
+    }).then(res => {
+        this.setToken(res.token);
+        return Promise.resolve(res);
+    });
+  }
+
   loggedIn() {
     const token = this.getToken();
     return !!token && !this.isTokenExpired(token);
