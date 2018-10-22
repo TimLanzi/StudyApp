@@ -205,11 +205,35 @@ app.get("/getProblem/:id", (req, res) => {
         if (err) {
           console.log("Error while performing Query.");
         }
+/*
+        var found = 0;
+        var newStr = "";
+        var index = 0;
+        var question = rows[0].question;
+        var i = 0;
+        for (i = 0; i < question.length; i++)
+        {
+          if(question[i] === '$' && found === 0)
+          {
+            found = 1;
+            newStr = newStr + '<MathJax.Node inline formula={\"';
+          }
+          else if (question[i] === '$' && found === 1)
+          {
+            found = 0;
+            newStr = newStr + '\"} />';
+          }
+          else
+          {
+            newStr = newStr + question[i];
+          }
+        }
+        rows[0].question = newStr;
+*/
         res.send(rows);
         console.log(rows);
       }
     );
-//    connection.end();
 
 });
 

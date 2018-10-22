@@ -1,3 +1,4 @@
+import "../../../../../node_modules/katex/dist/katex.min.css"
 import React from "react";
 import ReactDOM from "react-dom";
 import { withStyles } from "@material-ui/core/styles";
@@ -9,7 +10,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import Button from "material-ui/Button";
-import { Node, Provider } from 'react-mathjax';
+
+var Latex = require('react-latex');
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -19,8 +21,6 @@ const styles = theme => ({
     backgroundColor: "#ffffff"
   })
 });
-
-const MathJax = require('react-mathjax');
 
 export default class PracticeQ extends React.Component {
   constructor(props) {
@@ -80,13 +80,10 @@ export default class PracticeQ extends React.Component {
         <Paper className={classes.paper}>
           <Typography variant="headline" align="center" component="h3">
             {this.state.contents.map(content => (
-//             <MathJax.Provider>
                <div key={content.id}>
-                <h3>{this.state.questionSide ? content.question : content.solution}</h3>
+                {this.state.questionSide ? <Latex>{content.question}</Latex> : <Latex>{"$"+content.solution+"$"}</Latex>}
                </div>
-  //           </MathJax.Provider>
             ))}
-
             <br />
             <br />
           </Typography>
@@ -121,5 +118,4 @@ export default class PracticeQ extends React.Component {
     );
   }
 }
-
 
