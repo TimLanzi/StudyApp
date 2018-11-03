@@ -2,6 +2,7 @@ import "../../../../../node_modules/katex/dist/katex.min.css"
 import AuthService from  "../../AuthService";
 import React from "react";
 import ReactDOM from "react-dom";
+import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -126,7 +127,7 @@ export default class PracticeQ extends React.Component {
     else if(!this.state.questionSide && Auth.loggedIn())
     {
      return (
-      <main className={classes.content} Style="styles">
+      <main className={classes.content} Style="style s">
         <div className={classes.toolbar} margin-top="-100px" />
         <Paper className={classes.paper}>
           <Typography variant="headline" align="center" component="h3">
@@ -162,7 +163,7 @@ export default class PracticeQ extends React.Component {
                        value="next"
                        onClick={() => this.toggleAns()}
                      >
-                      1 
+                      1  
                      </Button>
                 </Grid>
                 <Grid item xs={5}>
@@ -222,7 +223,12 @@ export default class PracticeQ extends React.Component {
                     {this.state.contents.map(content => (
                      <div key={content.id}>
                         You are not logged in. Log in or create an account to start practicing!
-                     </div>
+                     <br />
+                     <br />
+                     <Button component={Link} to="/login">
+                        Login or Register Now
+                     </Button>
+                     </div> 
                     ))}
                  </Typography>
             </main>
