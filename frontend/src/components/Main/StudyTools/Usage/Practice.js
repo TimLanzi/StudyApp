@@ -1,4 +1,5 @@
 import "../../../../../node_modules/katex/dist/katex.min.css"
+import AuthService from  "../../AuthService";
 import React from "react";
 import ReactDOM from "react-dom";
 import { withStyles } from "@material-ui/core/styles";
@@ -10,6 +11,9 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import Button from "material-ui/Button";
+import Grid from "material-ui/Grid";
+
+const Auth = new AuthService();
 
 var Latex = require('react-latex');
 
@@ -74,6 +78,8 @@ export default class PracticeQ extends React.Component {
 
   render() {
     const { classes } = this.props;
+    if (this.state.questionSide && Auth.loggedIn())
+    {
     return (
       <main className={classes.content} Style="styles">
         <div className={classes.toolbar} margin-top="-100px" />
@@ -81,7 +87,7 @@ export default class PracticeQ extends React.Component {
           <Typography variant="headline" align="center" component="h3">
             {this.state.contents.map(content => (
                <div key={content.id}>
-                {this.state.questionSide ? <Latex>{content.question}</Latex> : <Latex>{"$"+content.solution+"$"}</Latex>}
+                <Latex>{content.question}</Latex>
                </div>
             ))}
             <br />
@@ -109,13 +115,119 @@ export default class PracticeQ extends React.Component {
                 value="next"
                 onClick={() => this.toggleAns()}
               >
-                {this.state.questionSide ? "Show Answer" : "Show Question"}
+                Show Answer
              </Button>
             </FormControl>
           </form>
         </Paper>
       </main>
     );
+    }
+    else if(!this.state.questionSide && Auth.loggedIn())
+    {
+     return (
+      <main className={classes.content} Style="styles">
+        <div className={classes.toolbar} margin-top="-100px" />
+        <Paper className={classes.paper}>
+          <Typography variant="headline" align="center" component="h3">
+            {this.state.contents.map(content => (
+               <div key={content.id}>
+                <Latex>{"$"+content.solution+"$"}</Latex>
+               </div>
+            ))}
+            <br />
+            <br />
+          </Typography>
+          <form onSubmit={this.handleSubmit}>
+            <FormControl
+              component="fieldset"
+              required
+              className={classes.formControl}
+            >
+              <FormLabel component="legend">
+               Grade youself based on how you feel you did. 
+              </FormLabel>
+              <RadioGroup
+                aria-label="answer"
+                name="answer1"
+                className={classes.group}
+                value={this.state.value}
+                onChange={this.handleChange}
+              />
+              <Grid container spacing={16}>
+                <Grid item xs={5}>
+                     <Button
+                       className={classes.nextQ}
+                       type=""
+                       value="next"
+                       onClick={() => this.toggleAns()}
+                     >
+                      1 
+                     </Button>
+                </Grid>
+                <Grid item xs={5}>
+                     <Button
+                       className={classes.nextQ}
+                       type=""
+                       value="next"
+                       onClick={() => this.toggleAns()}
+                     >
+                      2 
+                     </Button>
+                </Grid>
+                <Grid item xs={5}>
+                     <Button
+                       className={classes.nextQ}
+                       type=""
+                       value="next"
+                       onClick={() => this.toggleAns()}
+                     >
+                      3 
+                     </Button>
+                </Grid>
+                <Grid item xs={5}>
+                     <Button
+                       className={classes.nextQ}
+                       type=""
+                       value="next"
+                       onClick={() => this.toggleAns()}
+                     >
+                      4 
+                     </Button>
+                </Grid>
+                <Grid item xs={5}>
+                     <Button
+                       className={classes.nextQ}
+                       type=""
+                       value="next"
+                       onClick={() => this.toggleAns()}
+                     >
+                      5 
+                     </Button>
+                </Grid>
+              </Grid>
+            </FormControl>
+          </form>
+        </Paper>
+      </main>
+    );
+
+    }
+    else
+    {
+        return (
+           <main className={classes.content} Style="styles">
+             <div className={classes.toolbar} margin-top="-100px" />
+                 <Typography variant="headline" align="center" component="h3">
+                    {this.state.contents.map(content => (
+                     <div key={content.id}>
+                        You are not logged in. Log in or create an account to start practicing!
+                     </div>
+                    ))}
+                 </Typography>
+            </main>
+        );
+    }
   }
 }
 
