@@ -7,6 +7,7 @@ const port = 3001;
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const exjwt = require('express-jwt');
+//const jwtDecode = require('jwt-decode');
 var mysql = require('mysql');
 
 app.use(function(req, res, next) {
@@ -138,6 +139,35 @@ app.use(function (err, req, res, next){
   }
 });
 
+
+app.post("/postResult", (req, res) => {
+//    console.log(req.body);
+      var decoded = jwt.decode(req.body.token);
+//      console.log(decoded.username);
+      var result = {
+        'username': decoded.username,
+        'problem_id': req.body.problem,
+        'problem_grade': req.body.ans
+      };
+      console.log("Attempting to enter result into DB");
+      connection.query(
+        "INSERT INTO user_problem_results SET ?", result,
+        function(err, rows, fields)
+        {
+          if(err)
+          {
+            console.log("An error occured");
+            console.log(err);
+          }
+          else
+          {
+            console.log("No errors occured");
+            res.json({success: true, err:null});
+          }
+        });
+});
+
+
 app.post("/register", (req, res) => {
   console.log('Attempting to Register',req.body.username);
   connection.query(
@@ -211,5 +241,6 @@ app.get("/getProblem/:id", (req, res) => {
     );
 
 });
+
 
 app.listen(port, () => console.log(`Server started on port ${port}`));

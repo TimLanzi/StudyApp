@@ -33,7 +33,7 @@ export default class PracticeQ extends React.Component {
     this.state = {
       contents: [],
       questionSide: true,
-        problemNum: 1
+      problemNum: 1,
     };
 }
     getProblemNumber()
@@ -64,7 +64,7 @@ export default class PracticeQ extends React.Component {
     event.preventDefault();
   }
 
-  toggleAns() {
+  toggleAns(ans) {
     this.setState({ questionSide: this.state.questionSide ? false : true });
     console.log(this.state.questionSide);
     if (this.state.questionSide)
@@ -74,6 +74,21 @@ export default class PracticeQ extends React.Component {
              .then(res => res.json())
              .then(contents => this.setContents(contents));
         console.log("after fetch");
+    }
+    else
+    {
+      console.log(Auth.getToken() + "'s answer for problem #" + (this.state.problemNum-1) + " is " + ans);
+      var token = Auth.getToken();
+      var problem = this.state.problemNum-1;
+      fetch("http://165.227.198.233:3001/postResult", {
+        headers: {"Content-Type": "application/json"},
+        method: "POST",
+        body: JSON.stringify({
+          token,
+          problem,
+          ans
+        })
+      }).then(res => console.log(res));
     }
   }
 
@@ -161,7 +176,7 @@ export default class PracticeQ extends React.Component {
                        className={classes.nextQ}
                        type=""
                        value="next"
-                       onClick={() => this.toggleAns()}
+                       onClick={() => this.toggleAns(1)}
                      >
                       1  
                      </Button>
@@ -171,7 +186,7 @@ export default class PracticeQ extends React.Component {
                        className={classes.nextQ}
                        type=""
                        value="next"
-                       onClick={() => this.toggleAns()}
+                       onClick={() => this.toggleAns(2)}
                      >
                       2 
                      </Button>
@@ -181,7 +196,7 @@ export default class PracticeQ extends React.Component {
                        className={classes.nextQ}
                        type=""
                        value="next"
-                       onClick={() => this.toggleAns()}
+                       onClick={() => this.toggleAns(3)}
                      >
                       3 
                      </Button>
@@ -191,7 +206,7 @@ export default class PracticeQ extends React.Component {
                        className={classes.nextQ}
                        type=""
                        value="next"
-                       onClick={() => this.toggleAns()}
+                       onClick={() => this.toggleAns(4)}
                      >
                       4 
                      </Button>
@@ -201,7 +216,7 @@ export default class PracticeQ extends React.Component {
                        className={classes.nextQ}
                        type=""
                        value="next"
-                       onClick={() => this.toggleAns()}
+                       onClick={() => this.toggleAns(5)}
                      >
                       5 
                      </Button>
@@ -235,5 +250,6 @@ export default class PracticeQ extends React.Component {
         );
     }
   }
+
 }
 
