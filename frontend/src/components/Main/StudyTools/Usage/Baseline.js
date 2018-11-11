@@ -28,7 +28,7 @@ const styles = theme => ({
   })
 });
 
-export default class PracticeQ extends React.Component {
+export default class Baseline extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

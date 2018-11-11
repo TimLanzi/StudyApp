@@ -7,6 +7,7 @@ import About from "./Main/About";
 import Flashcard from "./Main/StudyTools/Usage/Flashcard";
 import PracticeQ from "./Main/StudyTools/Usage/Practice";
 import CreateFlashcard from "./Main/StudyTools/Usage/createFlashcard.js";
+import Baseline from "./Main/StudyTools/Usage/Baseline";
 import React from "react";
 import requireAuth from "../utils/requireAuth";
 import { Route } from "react-router-dom";
@@ -45,6 +46,10 @@ class Main extends React.Component {
         <Route
           path="/createFlashcard"
           render={() => <CreateFlashcard classes={classes} />}
+        />
+        <Route
+          path="/baseline"
+          render={() => <Baseline classes={classes} />}
         />
         <Route path="/login" render={() => <Login history={this.props.history} classes={classes} />} />
         <Route path="/logout" />

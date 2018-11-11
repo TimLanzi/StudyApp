@@ -45,6 +45,12 @@ export default class NavBar extends React.Component {
             </ListItemIcon>
             <Typography variant="title">Practice</Typography>
           </ListItem>
+          <ListItem button component={Link} to="/baseline">
+            <ListItemIcon>
+              <AssignIcon />
+            </ListItemIcon>
+            <Typography variant="title">Baseline Test</Typography>
+          </ListItem>
         </List>
         <Divider />
         <List>

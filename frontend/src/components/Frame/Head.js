@@ -14,6 +14,13 @@ import HeadIcon from "@material-ui/icons/Public";
 import AuthService from "../Main/AuthService";
 const Auth = new AuthService();
 
+const styles = {
+    iconSize:{
+        width: 60,
+        height: 60
+    }
+};
+
 class Head extends React.Component {
   constructor(props)
   {
@@ -64,14 +71,16 @@ class Head extends React.Component {
               to="/"
             >
               <HeadIcon />
-              VOITHOS
+              {/*  VOITHOS*/}
+             <h3> VOITHOS </h3>
             </IconButton>
             <Typography
               variant="display1"
               align="center"
               className={classes.flex}
             >
-              StudyApp
+             {/* <h2> StudyApp </h2>*/}
+                StudyApp
             </Typography>
             {auth && (
               <div>
@@ -80,6 +89,7 @@ class Head extends React.Component {
                   aria-haspopup="true"
                   onClick={this.handleMenu}
                   color="inherit"
+                  style={styles.iconSize}
                 >
                   <AccountCircle />
                 </IconButton>

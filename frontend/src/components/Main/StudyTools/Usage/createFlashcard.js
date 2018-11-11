@@ -1,6 +1,7 @@
 //createFlashcard.js
 import React from "react";
 //import form from "material-ui/Form";
+import AuthService from "../../AuthService";
 import Typography from "material-ui/Typography";
 import Grid from "material-ui/Grid";
 import Paper from "material-ui/Paper";
@@ -10,6 +11,8 @@ import AddIcon from "@material-ui/icons/NoteAdd";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
+
+const Auth = new AuthService();
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -45,6 +48,17 @@ export default class createFlashcard extends React.Component {
   }
 
   handleSubmit(event) {
+    var token = Auth.getToken();
+    var question = this.state.question;
+    var answer = this.state.answer;
+    fetch("http://165.227.198.233:3001/postFlashcard", {
+        headers:{"Content-Type":"application/json"},
+        method:"POST",
+        body: JSON.stringify({
+            token,question, answer
+        })
+    }).then(res => console.log(res));
+            
     alert("NEW FLASHCARD ADDED");
     event.preventDefault();
   }

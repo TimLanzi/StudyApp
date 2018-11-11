@@ -141,7 +141,7 @@ app.use(function (err, req, res, next){
 
 
 app.post("/postResult", (req, res) => {
-//    console.log(req.body);
+    console.log(req.body);
       var decoded = jwt.decode(req.body.token);
 //      console.log(decoded.username);
       var result = {
@@ -152,6 +152,32 @@ app.post("/postResult", (req, res) => {
       console.log("Attempting to enter result into DB");
       connection.query(
         "INSERT INTO user_problem_results SET ?", result,
+        function(err, rows, fields)
+        {
+          if(err)
+          {
+            console.log("An error occured");
+            console.log(err);
+          }
+          else
+          {
+            console.log("No errors occured");
+            res.json({success: true, err:null});
+          }
+        });
+});
+
+//for inserting flashcards
+app.post("/postFlashcard", (req, res) => {
+     var decoded = jwt.decode(req.body.token);
+     var result = {
+        'username': decoded.username,
+        'frontText': req.body.question,
+        'backText': req.body.answer
+      };
+      console.log("Attempting to enter flashcard into DB");
+      connection.query(
+        "INSERT INTO flashcardTest SET ?", result,
         function(err, rows, fields)
         {
           if(err)

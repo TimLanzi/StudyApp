@@ -1,8 +1,13 @@
 /*
   This file contains CSS classes and parameters to be injected into our frame using withStyles()
 */
-import blue from "material-ui/colors/purple";
-
+//import blue from "material-ui/colors/purple";
+import red from "material-ui/colors/red";
+import orange from "material-ui/colors/orange";
+import yellow from "material-ui/colors/yellow";
+import lightGreen from "material-ui/colors/lightGreen";
+import green from "material-ui/colors/green";
+import { createMuiTheme } from "@material-ui/core/styles";
 const drawerWidth = 200; // Drawer Width Const is applied in styles.drawerPaper.width
 
 export default theme => ({
@@ -53,5 +58,45 @@ export default theme => ({
     padding: theme.spacing.unit * 2,
     textAlign: "center",
     color: theme.palette.text.secondary
-  }
+  },
+  oneButton: {
+   flex: 1,
+   backgroundColor: red[500],
+   '&:hover': {
+     backgroundColor: red[900]
+   },
+   color: '#ffffff'
+  },
+  twoButton: {
+   flex: 1,
+   backgroundColor: orange[500],
+   '&:hover': {
+     backgroundColor: orange[900]
+   },
+   color: '#ffffff'
+  }, 
+ threeButton: {
+   flex: 1,
+   backgroundColor: yellow[500],
+   '&:hover': {
+     backgroundColor: yellow[900]
+   },
+   color: '#ffffff'
+  },
+  fourButton: {
+   flex: 1,
+   backgroundColor: lightGreen[500],
+   '&:hover': {
+     backgroundColor: lightGreen[900]
+   },
+   color: '#ffffff'
+  },
+  fiveButton: {
+   flex: 1,
+   backgroundColor: green[500],
+   '&:hover': {
+     backgroundColor: green[900]
+   },
+   color: '#ffffff'
+  },
 });
