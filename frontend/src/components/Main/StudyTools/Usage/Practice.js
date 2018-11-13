@@ -1,15 +1,10 @@
 import "../../../../../node_modules/katex/dist/katex.min.css"
 import AuthService from  "../../AuthService";
 import React from "react";
-import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
-import { withStyles, createMuiTheme } from "@material-ui/core/styles";
-import red from "material-ui/colors/red";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import Button from "material-ui/Button";

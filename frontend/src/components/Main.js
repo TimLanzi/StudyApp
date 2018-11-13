@@ -4,6 +4,7 @@
 import FlashcardLanding from "./Main/StudyTools/Landings/FlashcardLanding";
 import Login from "./Main/Login";
 import About from "./Main/About";
+import Rankings from "./Main/Rankings";
 import Flashcard from "./Main/StudyTools/Usage/Flashcard";
 import PracticeQ from "./Main/StudyTools/Usage/Practice";
 import CreateFlashcard from "./Main/StudyTools/Usage/createFlashcard.js";
@@ -11,9 +12,6 @@ import Baseline from "./Main/StudyTools/Usage/Baseline";
 import React from "react";
 import requireAuth from "../utils/requireAuth";
 import { Route } from "react-router-dom";
-//import AuthService from "./Main/AuthService";
-//import withAuth from "./Main/withAuth";
-//const Auth = new AuthService();
 
 class Main extends React.Component {
    constructor(props)
@@ -50,6 +48,10 @@ class Main extends React.Component {
         <Route
           path="/baseline"
           render={() => <Baseline classes={classes} />}
+        />
+        <Route
+          path="/rankings"
+          render={() => <Rankings classes={classes} />}
         />
         <Route path="/login" render={() => <Login history={this.props.history} classes={classes} />} />
         <Route path="/logout" />

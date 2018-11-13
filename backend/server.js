@@ -7,8 +7,8 @@ const port = 3001;
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const exjwt = require('express-jwt');
-//const jwtDecode = require('jwt-decode');
 var mysql = require('mysql');
+var regressor = require('js-regression');
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -268,5 +268,63 @@ app.get("/getProblem/:id", (req, res) => {
 
 });
 
+var calcUserVector = function(userM, probM)
+{   
+    var data = [];
+    for (var i =0; i < probM.length; i++)
+    {
+        var row = [probM[i].algebra, probM[i].arithmetic, probM[i].calculus, probM[i].functions, probM[i].geometry, probM[i].logarithm, probM[i].precalc, probM[i].trigonometry, probM[i].word_problem, userM[i].problem_grade];
+        data.push(row);
+    }
+    var regression = new regressor.LinearRegression({
+        alpha: .001,
+        iterations: 300,
+        lambda: 0
+    });
+
+    var model = regression.fit(data);
+    console.log(model);
+    return model;
+}
+
+app.get('/getRanking/:token', (req, res) => {
+    var decoded = jwt.decode(req.params.token);
+    var userMatrix;
+    var problemMatrix;
+    
+    connection.query(
+        "SELECT problem_id, problem_grade FROM user_problem_results WHERE username = ?", decoded.username,
+        function(err, rows, fields)
+        {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log(rows);
+                userMatrix = rows;
+                connection.query(
+                    "SELECT problem_id, algebra, arithmetic, calculus, functions, geometry, logarithm, precalc, trigonometry, word_problem FROM problems WHERE problem_id IN (SELECT problem_id FROM user_problem_results WHERE username = ?)", decoded.username,
+                    function(err, rows, fields)
+                    {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            //console.log(rows);
+                            problemMatrix = rows;
+                            var model = calcUserVector(userMatrix, problemMatrix);
+                            var rankings = [(model.theta[0] + model.theta[1])*10, (model.theta[0] + model.theta[2])*10, (model.theta[0] + model.theta[3])*10, (model.theta[0] + model.theta[4])*10, (model.theta[0] + model.theta[5])*10, (model.theta[0] + model.theta[6])*10, (model.theta[0] + model.theta[7])*10, (model.theta[0] + model.theta[8])*10, (model.theta[0] + model.theta[9])*10];
+                            console.log("Rankings:");
+                            console.log(rankings);
+                            var sendStuff = {'algebra':rankings[0], 'arithmetic':rankings[1], 'calculus':rankings[2], 'functions':rankings[3], 'geometry':rankings[4], 'logarithm':rankings[5], 'precalc':rankings[6], 'trigonometry':rankings[7], 'word_problem':rankings[8]}; 
+console.log(sendStuff);
+                            res.send(sendStuff);
+                        }
+                    }
+                );
+            }
+        }
+    )
+});
 
 app.listen(port, () => console.log(`Server started on port ${port}`));

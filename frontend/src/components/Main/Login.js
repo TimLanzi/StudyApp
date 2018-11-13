@@ -2,12 +2,8 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
-import Card, {CardActions, CardContent} from 'material-ui/Card';
-import Grid from 'material-ui/Grid';
 import FormLabel from '@material-ui/core/FormLabel';
 import AuthService from "./AuthService";
 
@@ -154,7 +150,7 @@ class Login extends React.Component {
       {
         alert("One or more required fields are not filled in");
       }
-      else if (this.state.password != this.state.passwordCheck)
+      else if (this.state.password !== this.state.passwordCheck)
       {
         alert("Passwords do not match");
       }

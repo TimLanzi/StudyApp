@@ -4,7 +4,7 @@ import Grid from "material-ui/Grid";
 import Paper from "material-ui/Paper";
 import ButtonIcon from "material-ui/Button";
 import AddIcon from "@material-ui/icons/NoteAdd";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class FlashcardLanding extends React.Component {
   render() {

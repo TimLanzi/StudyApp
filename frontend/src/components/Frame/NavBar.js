@@ -60,12 +60,12 @@ export default class NavBar extends React.Component {
             </ListItemIcon>
             <Typography variant="title">Flashcard set testing</Typography>
           </ListItem>
-          <ListItem button>
+         {/* <ListItem button>
             <Typography variant="button">Button 5</Typography>
           </ListItem>
           <ListItem button>
             <Typography variant="button">Button 6</Typography>
-          </ListItem>
+          </ListItem>*/}
         </List>
       </Drawer>
     );
