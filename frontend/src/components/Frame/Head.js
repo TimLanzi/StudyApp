@@ -8,16 +8,10 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import Menu, { MenuItem } from "material-ui/Menu";
 import { Link } from "react-router-dom";
 import HeadIcon from "@material-ui/icons/Public";
+import { withStyles } from "@material-ui/core/styles";
 import Button from "material-ui/Button";
 import AuthService from "../Main/AuthService";
 const Auth = new AuthService();
-
-const styles = {
-    iconSize:{
-        width: 60,
-        height: 60
-    }
-};
 
 class Head extends React.Component {
   constructor(props)
@@ -109,10 +103,10 @@ class Head extends React.Component {
                   open={open}
                   onClose={this.handleClose}
                 >*/}
-                  <Button component={Link} to="/rankings"><b>My Rankings</b></Button>
-                  <Button onClick={this.handleClose}><b>My Account</b></Button>
+                  <Button color="inherit" component={Link} to="/rankings"><b>My Rankings</b></Button>
+                  <Button color="inherit" onClick={this.handleClose}><b>My Account</b></Button>
                   {/*<MenuItem button component={Link} to="/login">Login/Register</MenuItem>*/}
-                  <Button onClick={this.handleLogout.bind(this)}><b>Logout</b></Button>
+                  <Button color="inherit" onClick={this.handleLogout.bind(this)}><b>Logout</b></Button>
                {/* </Menu>*/}
               </div>
             )}
@@ -175,7 +169,7 @@ class Head extends React.Component {
                 >*/}
                   {/*<MenuItem onClick={this.handleClose}>Profile</MenuItem>
                   <MenuItem onClick={this.handleClose}>My account</MenuItem>*/}
-                  <Button component={Link} to="/login"> <b>Login / Register</b></Button>
+                  <Button color="inherit" component={Link} to="/login"> <b>Login / Register</b></Button>
                   {/*<MenuItem button onClick={this.handleLogout.bind(this)}>Logout</MenuItem>*/}
                 {/*</Menu>*/}
               </div>

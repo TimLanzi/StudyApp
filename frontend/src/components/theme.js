@@ -35,7 +35,8 @@ export default theme => ({
     width: drawerWidth
   },
   appBar: {
-    background: "linear-gradient(45deg, #3366cc 30%, #ccffff 99%)",
+    //background: "linear-gradient(45deg, #3366cc 30%, #ccffff 99%)",
+    background: "#2196f3",
     zIndex: theme.zIndex.drawer + 1
   },
   drawerPaper: {
