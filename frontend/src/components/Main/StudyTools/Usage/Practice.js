@@ -13,7 +13,7 @@ import Grid from "material-ui/Grid";
 const Auth = new AuthService();
 
 var Latex = require('react-latex');
-
+/*
 const styles = theme => ({
   root: theme.mixins.gutters({
     paddingTop: 100,
@@ -22,6 +22,7 @@ const styles = theme => ({
     backgroundColor: "#ffffff"
   })
 });
+*/
 
 export default class PracticeQ extends React.Component {
   constructor(props) {
@@ -159,7 +160,7 @@ export default class PracticeQ extends React.Component {
               className={classes.formControl}
             >
               <FormLabel component="legend">
-               Grade youself based on how you feel you did. 
+               Grade yourself based on how you feel you did. 
               </FormLabel>
               <br />
               <RadioGroup

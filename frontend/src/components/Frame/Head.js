@@ -8,6 +8,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import Menu, { MenuItem } from "material-ui/Menu";
 import { Link } from "react-router-dom";
 import HeadIcon from "@material-ui/icons/Public";
+import Button from "material-ui/Button";
 import AuthService from "../Main/AuthService";
 const Auth = new AuthService();
 
@@ -70,12 +71,13 @@ class Head extends React.Component {
               to="/"
             >
               <HeadIcon />
-              {/*  VOITHOS*/}
              <h3> VOITHOS </h3>
             </IconButton>
             <Typography
-              variant="display1"
-              align="center"
+              component="h1"
+              variant="h1"
+              color="white"
+              align="left"
               className={classes.flex}
             >
              {/* <h2> StudyApp </h2>*/}
@@ -83,6 +85,7 @@ class Head extends React.Component {
             </Typography>
             {auth && (
               <div>
+                {/*
                 <IconButton
                   aria-owns={open ? "menu-appbar" : null}
                   aria-haspopup="true"
@@ -105,12 +108,12 @@ class Head extends React.Component {
                   }}
                   open={open}
                   onClose={this.handleClose}
-                >
-                  <MenuItem button component={Link} to="/rankings">My Rankings</MenuItem>
-                  <MenuItem onClick={this.handleClose}>My Account</MenuItem>
+                >*/}
+                  <Button component={Link} to="/rankings"><b>My Rankings</b></Button>
+                  <Button onClick={this.handleClose}><b>My Account</b></Button>
                   {/*<MenuItem button component={Link} to="/login">Login/Register</MenuItem>*/}
-                  <MenuItem button onClick={this.handleLogout.bind(this)}>Logout</MenuItem>
-                </Menu>
+                  <Button onClick={this.handleLogout.bind(this)}><b>Logout</b></Button>
+               {/* </Menu>*/}
               </div>
             )}
           </Toolbar>
@@ -132,19 +135,21 @@ class Head extends React.Component {
               to="/"
             >
               <HeadIcon />
-              {/*  VOITHOS*/}
              <h3> VOITHOS </h3>
             </IconButton>
             <Typography
-              variant="display1"
-              align="center"
+              component="h1"
+              variant="h1"
+              align="left"
+              color="white"
               className={classes.flex}
             >
              {/* <h2> StudyApp </h2>*/}
-                StudyApp
+               <b> StudyApp</b>
             </Typography>
             {auth && (
               <div>
+                {/*
                 <IconButton
                   aria-owns={open ? "menu-appbar" : null}
                   aria-haspopup="true"
@@ -167,12 +172,12 @@ class Head extends React.Component {
                   }}
                   open={open}
                   onClose={this.handleClose}
-                >
+                >*/}
                   {/*<MenuItem onClick={this.handleClose}>Profile</MenuItem>
                   <MenuItem onClick={this.handleClose}>My account</MenuItem>*/}
-                  <MenuItem button component={Link} to="/login">Login/Register</MenuItem>
+                  <Button component={Link} to="/login"> <b>Login / Register</b></Button>
                   {/*<MenuItem button onClick={this.handleLogout.bind(this)}>Logout</MenuItem>*/}
-                </Menu>
+                {/*</Menu>*/}
               </div>
             )}
           </Toolbar>

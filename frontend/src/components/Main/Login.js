@@ -7,15 +7,6 @@ import TextField from 'material-ui/TextField';
 import FormLabel from '@material-ui/core/FormLabel';
 import AuthService from "./AuthService";
 
-const styles = theme => ({
-    root: theme.mixins.gutters({
-        paddingTop: 100, 
-        paddingBottem: 16, 
-        marginTop: theme.spacing.unit * 3,
-        backgroundColor: "#ffffff"
-    })
-});
-
 class Login extends React.Component {
   constructor() {
     super();
