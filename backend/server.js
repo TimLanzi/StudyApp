@@ -3,7 +3,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 app.use(cors());
-const port = 3001;
+let port = require('../frontend/config').port,
+    db_config = require('../frontend/config').db_config;
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const exjwt = require('express-jwt');
@@ -63,13 +64,6 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-
-var db_config = {
-  host: "localhost",
-  user: "project",
-  password: "project",
-  database: "StudyAppDB"
-};
 
 var connection;
 
