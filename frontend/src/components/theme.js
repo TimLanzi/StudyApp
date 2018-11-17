@@ -12,7 +12,7 @@ const drawerWidth = 200; // Drawer Width Const is applied in styles.drawerPaper.
 
 export default theme => ({
   root: {
-    height: 800,
+    height: 1920,
     flexGrow: 1,
     zIndex: 1,
     overflow: "hidden",

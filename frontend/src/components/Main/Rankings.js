@@ -1,5 +1,6 @@
 import React from 'react';
 import Typography from 'material-ui/Typography';
+import StarRatingComponent from 'react-star-rating-component';
 import AuthService from './AuthService';
 const Auth = new AuthService();
 
@@ -120,29 +121,53 @@ export default class Rankings extends React.Component {
     render() {
         const { classes } = this.props;
         this.setRankings(this.state.rankings);
+        let basic = (this.state.arithmetic + this.state.algebra + this.state.functions + this.state.word_problem) / 4,
+            intermediate = (this.state.functions + this.state.word_problem + this.state.logarithm + this.state.geometry) / 4,
+            advanced = (this.state.trigonometry + this.state.geometry + this.state.precalc + this.state.calculus) / 4,
+            overall = (basic + intermediate + advanced) / 3;
         return (
             <main className={classes.content} >
                 <div className={classes.toolbar} margin-top='-100px' />
                 <Typography noWrap align='center'>
-                    <h1>Coming Soon!</h1>
-                    {this.state.algebra}
-                    <br/>
-                    {this.state.arithmetic}
-                    <br/>
-                    {this.state.calculus}
-                    <br/>
-                    {this.state.functions}
-                    <br/>
-                    {this.state.geometry}
-                    <br/>
-                    {this.state.logarithm}
-                    <br/>
-                    {this.state.precalc}
-                    <br/>
-                    {this.state.trigonometry}
-                    <br/>
-                    {this.state.word_problem}
-
+                    <h2>Pardon our progress</h2>
+                    <div align="left">
+                    {"Overall Ranking: " + overall.toFixed(2)}
+                    <br/><h1><b>
+                    <StarRatingComponent
+                        name="overall"
+                        editing={false}
+                        starCount={5}
+                        value={Math.round(overall)}
+                        starColor={"#2196f3"}
+                    /></b></h1>
+                    {"Basic Problems: " + basic.toFixed(2)}
+                    <br/><h1>
+                    <StarRatingComponent
+                        name="basic"
+                        editing={false}
+                        starCount={5}
+                        value={Math.round(basic)}
+                        starColor={"#2196f3"}
+                    /></h1>
+                    {"Intemediate Problems: " + intermediate.toFixed(2)}
+                    <br/><h1>
+                    <StarRatingComponent
+                        name="intermediate"
+                        editing={false}
+                        starCount={5}
+                        value={Math.round(intermediate)}
+                        starColor={"#2196f3"}
+                    /></h1>
+                    {"Advanced Problems: " + advanced.toFixed(2)}
+                    <br/><h1>
+                    <StarRatingComponent
+                        name="advanced"
+                        editing={false}
+                        starCount={5}
+                        value={Math.round(advanced)}
+                        starColor={"#2196f3"}
+                    /></h1>
+                    </div>
                 </Typography>
             </main>
         );
