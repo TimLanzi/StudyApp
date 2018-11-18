@@ -2,6 +2,7 @@ import React from 'react';
 import Typography from 'material-ui/Typography';
 import Grid from '@material-ui/core/Grid';
 import StarRatingComponent from 'react-star-rating-component';
+import { Link } from 'react-router-dom';
 import AuthService from './AuthService';
 const jwt = require('jsonwebtoken');
 const Auth = new AuthService();
@@ -20,6 +21,7 @@ export default class Rankings extends React.Component {
         super(props);
         this.state = {
             rankings:[],
+            probsCompleted:0,
             algebra:0,
             arithmetic:0,
             calculus:0,
@@ -29,6 +31,7 @@ export default class Rankings extends React.Component {
             precalc:0,
             trigonometry:0,
             word_problem:0,
+            loaded:false,
         };
     }
 
@@ -117,11 +120,14 @@ export default class Rankings extends React.Component {
             .then(res => res.json())
             .then(rankings => this.setState({rankings}))
             .then(() => this.setState({...this.state.rankings}))
-            .then(() => console.log(this.state.rankings));
+            .then(() => console.log(this.state.rankings))
+            .then(() => this.setState({loaded: true}));
     }
 
     render() {
         const { classes } = this.props;
+        if (this.state.loaded && this.state.probsCompleted >= 15)
+        {
         this.setRankings(this.state.rankings);
         let basic = (this.state.arithmetic + this.state.algebra + this.state.functions + this.state.word_problem) / 4,
             intermediate = (this.state.functions + this.state.word_problem + this.state.logarithm + this.state.geometry) / 4,
@@ -178,7 +184,7 @@ export default class Rankings extends React.Component {
                     <Grid item xs={12} sm={6}>
                     <div align="left">
                     <strong>
-                    <p>We're no strangers to love<br/>You know the rules and so do I<br/>A full commitment's what i'm thinking of<br/>You wouldn't get this from any other guy</p>
+                    <p>We're no strangers to love<br/>You know the rules and so do I<br/>A full commitment's what I'm thinking of<br/>You wouldn't get this from any other guy</p>
                     <p>I just wanna tell you how I'm feeling<br/>Gotta make you understand</p>
                     <p>Never gonna give you up<br/>Never gonna let you down<br/>Never gonna run around and desert you<br/>Never gonna make you cry<br/>Never gonna say goodbye<br/>Never gonna tell a lie and hurt you</p>
                     <p>We've known each other for so long<br/>Your heart's been aching but you're too shy to say it<br/>Inside we both know what's been going on<br/>We know the game and we're gonna play it</p>
@@ -195,5 +201,93 @@ export default class Rankings extends React.Component {
                 </Typography>
             </main>
         );
+        }
+        else if (this.state.loaded && this.state.probsCompleted < 1)
+        {
+            let decoded = jwt.decode(Auth.getToken());
+
+            return (
+            <main className={classes.content} >
+                <div className={classes.toolbar} margin-top='-100px' />
+                <Typography align='center'>
+                    <h1>{decoded.username}'s Rankings</h1>
+                    <br/>
+                    <Grid container wrap="nowrap" spacing={40}>
+                        <Grid item xs={12} sm={6}>
+                        <div align="left">
+                            <h4>You haven't done any problems yet. Get started on our practice page <Link to="/practiceQ">here</Link>!</h4>
+                        </div>
+                        </Grid>
+                    <Grid item xs={12} sm={6}>
+                    <div align="left">
+                    <strong>
+                    <p>We're no strangers to love<br/>You know the rules and so do I<br/>A full commitment's what I'm thinking of<br/>You wouldn't get this from any other guy</p>
+                    <p>I just wanna tell you how I'm feeling<br/>Gotta make you understand</p>
+                    <p>Never gonna give you up<br/>Never gonna let you down<br/>Never gonna run around and desert you<br/>Never gonna make you cry<br/>Never gonna say goodbye<br/>Never gonna tell a lie and hurt you</p>
+                    <p>We've known each other for so long<br/>Your heart's been aching but you're too shy to say it<br/>Inside we both know what's been going on<br/>We know the game and we're gonna play it</p>
+                    <p>And if you ask me how I'm feeling<br/>Don't tell me you're too blind to see</p>
+                    <p>Never gonna give you up<br/>Never gonna let you down<br/>Never gonna run around and desert you<br/>Never gonna make you cry<br/>Never gonna say goodbye<br/>Never gonna tell a lie and hurt you<br/>Never gonna give you up<br/>Never gonna let you down<br/>Never gonna run around and desert you<br/>Never gonna make you cry<br/>Never gonna say goodbye<br/>Never gonna tell a lie and hurt you</p>
+                    <p>(Ooh give you up)<br/>(Ooh give you up)<br/>(Ooh) Never gonna give, never gonna give (give you up)<br/>(Ooh) Never gonna give, never gonna give (give you up)</p>
+                    <p>We've known each other for so long<br/>Your heart's been aching but you're too shy to say it<br/>Inside we both know what's been going on<br/>We know the game and we're gonna play it</p>
+                    <p>I just wanna tell you how I'm feeling<br/>Gotta make you understand</p>
+                    <p>Never gonna give you up<br/>Never gonna let you down<br/>Never gonna run around and desert you<br/>Never gonna make you cry<br/>Never gonna say goodbye<br/>Never gonna tell a lie and hurt you<br/>Never gonna give you up<br/>Never gonna let you down<br/>Never gonna run around and desert you<br/>Never gonna make you cry<br/>Never gonna say goodbye<br/>Never gonna tell a lie and hurt you<br/>Never gonna give you up<br/>Never gonna let you down<br/>Never gonna run around and desert you<br/>Never gonna make you cry<br/>Never gonna say goodbye<br/>Never gonna tell a lie and hurt you</p>
+                    </strong>
+                    </div>
+                    </Grid>
+                    </Grid>
+                </Typography>
+            </main>
+        );
+
+        }
+        else if (this.state.loaded && this.state.probsCompletetd >= 1 && this.state.probsCompleted < 15)
+        {
+            let decoded = jwt.decode(Auth.getToken());
+
+            return (
+            <main className={classes.content} >
+                <div className={classes.toolbar} margin-top='-100px' />
+                <Typography align='center'>
+                    <h1>{decoded.username}'s Rankings</h1>
+                    <br/>
+                    <Grid container wrap="nowrap" spacing={40}>
+                        <Grid item xs={12} sm={6}>
+                        <div align="left">
+                            <h4>You haven't done enough problems for us to accurately calculate your rankings yet. Keep working on our practice page <Link to="/practiceQ">here</Link>!</h4>
+                        </div>
+                        </Grid>
+                    <Grid item xs={12} sm={6}>
+                    <div align="left">
+                    <strong>
+                    <p>We're no strangers to love<br/>You know the rules and so do I<br/>A full commitment's what I'm thinking of<br/>You wouldn't get this from any other guy</p>
+                    <p>I just wanna tell you how I'm feeling<br/>Gotta make you understand</p>
+                    <p>Never gonna give you up<br/>Never gonna let you down<br/>Never gonna run around and desert you<br/>Never gonna make you cry<br/>Never gonna say goodbye<br/>Never gonna tell a lie and hurt you</p>
+                    <p>We've known each other for so long<br/>Your heart's been aching but you're too shy to say it<br/>Inside we both know what's been going on<br/>We know the game and we're gonna play it</p>
+                    <p>And if you ask me how I'm feeling<br/>Don't tell me you're too blind to see</p>
+                    <p>Never gonna give you up<br/>Never gonna let you down<br/>Never gonna run around and desert you<br/>Never gonna make you cry<br/>Never gonna say goodbye<br/>Never gonna tell a lie and hurt you<br/>Never gonna give you up<br/>Never gonna let you down<br/>Never gonna run around and desert you<br/>Never gonna make you cry<br/>Never gonna say goodbye<br/>Never gonna tell a lie and hurt you</p>
+                    <p>(Ooh give you up)<br/>(Ooh give you up)<br/>(Ooh) Never gonna give, never gonna give (give you up)<br/>(Ooh) Never gonna give, never gonna give (give you up)</p>
+                    <p>We've known each other for so long<br/>Your heart's been aching but you're too shy to say it<br/>Inside we both know what's been going on<br/>We know the game and we're gonna play it</p>
+                    <p>I just wanna tell you how I'm feeling<br/>Gotta make you understand</p>
+                    <p>Never gonna give you up<br/>Never gonna let you down<br/>Never gonna run around and desert you<br/>Never gonna make you cry<br/>Never gonna say goodbye<br/>Never gonna tell a lie and hurt you<br/>Never gonna give you up<br/>Never gonna let you down<br/>Never gonna run around and desert you<br/>Never gonna make you cry<br/>Never gonna say goodbye<br/>Never gonna tell a lie and hurt you<br/>Never gonna give you up<br/>Never gonna let you down<br/>Never gonna run around and desert you<br/>Never gonna make you cry<br/>Never gonna say goodbye<br/>Never gonna tell a lie and hurt you</p>
+                    </strong>
+                    </div>
+                    </Grid>
+                    </Grid>
+                </Typography>
+            </main>
+        );
+
+        }
+        else //if (!this.state.loaded)
+        {
+        return (
+            <main className={classes.content} >
+                <div className={classes.toolbar} margin-top='-100px' />
+                <Typography align='center'>
+                <h1>Loading your rankings...</h1>
+                </Typography>
+            </main>
+        );
+        }    
     }
 }

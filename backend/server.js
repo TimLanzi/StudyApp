@@ -322,6 +322,7 @@ app.get('/getRanking/:token', (req, res) => {
             else {
                 console.log(rows);
                 userMatrix = rows;
+                let probsCompleted = rows.length;
                 connection.query(
                     "SELECT problem_id, algebra, arithmetic, calculus, functions, geometry, logarithm, precalc, trigonometry, word_problem FROM problems WHERE problem_id IN (SELECT problem_id FROM user_problem_results WHERE username = ?)", decoded.username,
                     function(err, rows, fields)
@@ -336,7 +337,7 @@ app.get('/getRanking/:token', (req, res) => {
                             var rankings = [(model.theta[0] + model.theta[1])*10, (model.theta[0] + model.theta[2])*10, (model.theta[0] + model.theta[3])*10, (model.theta[0] + model.theta[4])*10, (model.theta[0] + model.theta[5])*10, (model.theta[0] + model.theta[6])*10, (model.theta[0] + model.theta[7])*10, (model.theta[0] + model.theta[8])*10, (model.theta[0] + model.theta[9])*10];
                             console.log("Rankings:");
                             console.log(rankings);
-                            var sendStuff = {'algebra':rankings[0], 'arithmetic':rankings[1], 'calculus':rankings[2], 'functions':rankings[3], 'geometry':rankings[4], 'logarithm':rankings[5], 'precalc':rankings[6], 'trigonometry':rankings[7], 'word_problem':rankings[8]}; 
+                            var sendStuff = {'probsCompleted':probsCompleted, 'algebra':rankings[0], 'arithmetic':rankings[1], 'calculus':rankings[2], 'functions':rankings[3], 'geometry':rankings[4], 'logarithm':rankings[5], 'precalc':rankings[6], 'trigonometry':rankings[7], 'word_problem':rankings[8]}; 
 console.log(sendStuff);
                             res.send(sendStuff);
                         }
