@@ -316,6 +316,9 @@ app.get('/getRanking/:token', (req, res) => {
             if (err) {
                 console.log(err);
             }
+            else if (rows.length < 1) {
+                res.send({success:false});
+            }
             else {
                 console.log(rows);
                 userMatrix = rows;
