@@ -13,7 +13,7 @@ import Grid from "material-ui/Grid";
 const Auth = new AuthService();
 
 var Latex = require('react-latex');
-/*
+
 const styles = theme => ({
   root: theme.mixins.gutters({
     paddingTop: 100,
@@ -22,7 +22,7 @@ const styles = theme => ({
     backgroundColor: "#ffffff"
   })
 });
-*/
+
 
 export default class PracticeQ extends React.Component {
   constructor(props) {
@@ -111,7 +111,6 @@ export default class PracticeQ extends React.Component {
           <form onSubmit={this.handleSubmit}>
             <FormControl
               component="fieldset"
-              required
               className={classes.formControl}
             >
               <FormLabel component="legend">
@@ -124,14 +123,19 @@ export default class PracticeQ extends React.Component {
                 value={this.state.value}
                 onChange={this.handleChange}
               />
+              <br/>
+            <div align="center">
               <Button
-                className={classes.nextQ}
+                variant="contained"
+                className={classes.submitButton}
+                textAlign="center"
                 type=""
                 value="next"
                 onClick={() => this.toggleAns()}
               >
-                Show Answer
+            <b>Show Answer</b>
              </Button>
+            </div>
             </FormControl>
           </form>
         </Paper>
@@ -156,7 +160,6 @@ export default class PracticeQ extends React.Component {
           <form onSubmit={this.handleSubmit}>
             <FormControl
               component="fieldset"
-              required
               className={classes.formControl}
             >
               <FormLabel component="legend">
@@ -238,11 +241,14 @@ export default class PracticeQ extends React.Component {
                  <Typography variant="headline" align="center" component="h3">
                     {this.state.contents.map(content => (
                      <div key={content.id}>
-                        You are not logged in. Log in or create an account to start practicing!
+                        <strong>You are not logged in. Log in or create an account to start practicing!</strong>
                      <br />
                      <br />
-                     <Button component={Link} to="/login">
-                        Login or Register Now
+                     <Button
+                        component={Link} to="/login"
+                        className={classes.submitButton}
+                     >
+                        <b>Login or Register Now</b>
                      </Button>
                      </div> 
                     ))}

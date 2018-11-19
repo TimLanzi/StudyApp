@@ -36,10 +36,6 @@ export default class Rankings extends React.Component {
     }
 
     setRankings(rankings) {
-        //console.log("Before setstate, algebra= "+ this.state.algebra);
-        //this.setState({...rankings});
-        //console.log("After setstate, algebra= "+ this.state.algebra);
-        //console.log(this.state.algebra > 5);
         
         // Truncates algebra scores into a 0-5 range
         if (this.state.algebra > 5) {

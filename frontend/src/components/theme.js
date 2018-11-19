@@ -7,6 +7,7 @@ import orange from "material-ui/colors/orange";
 import yellow from "material-ui/colors/yellow";
 import lightGreen from "material-ui/colors/lightGreen";
 import green from "material-ui/colors/green";
+import blue from "material-ui/colors/blue";
 import { createMuiTheme } from "@material-ui/core/styles";
 const drawerWidth = 200; // Drawer Width Const is applied in styles.drawerPaper.width
 
@@ -59,6 +60,15 @@ export default theme => ({
     padding: theme.spacing.unit * 2,
     textAlign: "center",
     color: theme.palette.text.secondary
+  },
+  submitButton: {
+    flex: 1,
+    backgroundColor: blue[500],
+    '&:hover': {
+      backgroundColor: blue[900]
+    },
+    color: '#ffffff',
+    justifyContent: 'center'
   },
   oneButton: {
    flex: 1,

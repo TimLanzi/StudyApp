@@ -5,6 +5,7 @@ import FlashcardLanding from "./Main/StudyTools/Landings/FlashcardLanding";
 import Login from "./Main/Login";
 import About from "./Main/About";
 import Rankings from "./Main/Rankings";
+import Account from "./Main/Account";
 import Flashcard from "./Main/StudyTools/Usage/Flashcard";
 import PracticeQ from "./Main/StudyTools/Usage/Practice";
 import CreateFlashcard from "./Main/StudyTools/Usage/createFlashcard.js";
@@ -53,7 +54,14 @@ class Main extends React.Component {
           path="/rankings"
           render={() => <Rankings classes={classes} />}
         />
-        <Route path="/login" render={() => <Login history={this.props.history} classes={classes} />} />
+        <Route 
+          path="/login" 
+          render={() => <Login history={this.props.history} classes={classes} />} 
+        />
+        <Route
+          path="/account"
+          render={() => <Account classes={classes} />}
+        />
         <Route path="/logout" />
         <Route path="/checkout" />
       </div>

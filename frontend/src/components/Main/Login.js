@@ -53,7 +53,15 @@ class Login extends React.Component {
                 onChange={this.handleChange}
               />
               <br/>
-              <Button type="submit" primary={true} onClick={this.handleFormSubmit}>Submit</Button>
+              <br/>
+              <Button 
+                className={classes.submitButton}
+                type="submit"
+                primary={true}
+                onClick={this.handleFormSubmit}
+              >
+                <b>Submit</b>
+              </Button>
               <br/>
               <br/>
               <FormLabel component="legend">
@@ -100,7 +108,15 @@ class Login extends React.Component {
                 onChange={this.handleChange}
               />
               <br/>
-              <Button type="submit" primary={true} onClick={this.handleFormSubmit}>Submit</Button>
+              <br/>
+              <Button
+                type="submit"
+                className={classes.submitButton}
+                primary={true}
+                onClick={this.handleFormSubmit}
+              >
+                <b>Submit</b>
+              </Button>
               <br/>
               <br/>
               <FormLabel component="legend">
