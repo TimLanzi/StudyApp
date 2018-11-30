@@ -104,7 +104,7 @@ class Head extends React.Component {
                   onClose={this.handleClose}
                 >*/}
                   <Button color="inherit" component={Link} to="/rankings"><b>My Rankings</b></Button>
-                  <Button color="inherit" component={Link} to="/account"><b>My Account</b></Button>
+                  <Button color="inherit" component={Link} to="/account"><b>Account Settings</b></Button>
                   {/*<MenuItem button component={Link} to="/login">Login/Register</MenuItem>*/}
                   <Button color="inherit" onClick={this.handleLogout.bind(this)}><b>Logout</b></Button>
                {/* </Menu>*/}

@@ -9,6 +9,7 @@ import Account from "./Main/Account";
 import Flashcard from "./Main/StudyTools/Usage/Flashcard";
 import PracticeQ from "./Main/StudyTools/Usage/Practice";
 import CreateFlashcard from "./Main/StudyTools/Usage/createFlashcard.js";
+import CreateFlashcardSet from "./Main/StudyTools/Usage/createFlashcardSet.js";
 import Baseline from "./Main/StudyTools/Usage/Baseline";
 import React from "react";
 import requireAuth from "../utils/requireAuth";
@@ -45,6 +46,10 @@ class Main extends React.Component {
         <Route
           path="/createFlashcard"
           render={() => <CreateFlashcard classes={classes} />}
+        />
+        <Route
+            path="/createFlashcardSet"
+            render={() => <CreateFlashcardSet classes={classes} />}
         />
         <Route
           path="/baseline"

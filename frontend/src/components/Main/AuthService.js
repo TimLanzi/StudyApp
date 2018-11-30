@@ -21,13 +21,16 @@ export default class AuthService {
     });
   }
 
-  register(username, password) {
+  register(username, password, firstName, lastName, email) {
     console.log("Attempting to register ", this.domain, username, password);
     return this.fetch(`${this.domain}/register`, {
       method: "POST",
       body: JSON.stringify({
         username,
         password,
+        firstName,
+        lastName,
+        email,
       })
     }).then(res => {
         this.setToken(res.token);

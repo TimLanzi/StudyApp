@@ -93,6 +93,30 @@ class Login extends React.Component {
               />
               <br/>
               <TextField
+                placeHolder="Email"
+                name="email"
+                type="text"
+                label="Email"
+                onChange={this.handleChange}
+              />
+              <br/>
+              <TextField
+                placeHolder="Rick"
+                name="firstName"
+                type="text"
+                label="First Name"
+                onChange={this.handleChange}
+              />
+              <br/>
+              <TextField
+                placeHolder="Astley"
+                name="lastName"
+                type="text"
+                label="Last Name"
+                onChange={this.handleChange}
+              />
+              <br/>
+              <TextField
                 placeHolder="Enter Password"
                 name="password"
                 type="password"
@@ -153,7 +177,7 @@ class Login extends React.Component {
     /* Register block */
     else
     {
-      if (!this.state.username || !this.state.password || !this.state.passwordCheck)
+      if (!this.state.username || !this.state.password || !this.state.passwordCheck || !this.state.firstName || !this.state.lastName || !this.state.email)
       {
         alert("One or more required fields are not filled in");
       }
@@ -163,7 +187,7 @@ class Login extends React.Component {
       }
       else
       {
-        this.Auth.register(this.state.username, this.state.password)
+        this.Auth.register(this.state.username, this.state.password, this.state.firstName, this.state.lastName, this.state.email)
           .then(res => {
             this.context.router.history.push("/");
           })

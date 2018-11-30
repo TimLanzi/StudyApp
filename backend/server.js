@@ -4,7 +4,8 @@ const app = express();
 const cors = require('cors');
 app.use(cors());
 let port = require('../frontend/config').port,
-    db_config = require('../frontend/config').db_config;
+    db_config = require('../frontend/config').db_config
+    jwtSecret = require('../frontend/config').secret;
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const exjwt = require('express-jwt');
@@ -95,7 +96,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 const jwtMW = exjwt({
-  secret: 'keyboard cat 4ever'
+  secret: jwtSecret
 });
 
 app.post('/login', (req, res) => {
@@ -115,7 +116,13 @@ app.post('/login', (req, res) => {
         {
           if (checkPassword(rows[0].salt, rows[0].hash, password))
           {
-            let token = jwt.sign({username: username}, 'keyboard cat 4ever', {expiresIn: 129000});
+            let payload = {
+              username: username,
+              firstName: rows[0].firstName,
+              lastName: rows[0].lastName,
+              email: rows[0].email,
+            }
+            let token = jwt.sign(payload, jwtSecret, {expiresIn: 129000});
             res.json({
               sucess: true,
               err: null,
@@ -211,6 +218,31 @@ app.post("/postFlashcard", (req, res) => {
         });
 });
 
+//for inserting new flashcard sets
+app.post("/postFlashcardSet", (req, res) => {
+     var decoded = jwt.decode(req.body.token);
+     var result = {
+        'username': decoded.username,
+        'name': req.body.name
+      };
+      console.log("Attempting to enter flashcard set into DB");
+      connection.query(
+        "INSERT INTO flashcard_sets SET ?", result,
+        function(err, rows, fields)
+        {
+          if(err)
+          {
+            console.log("An error occured");
+            console.log(err);
+          }
+          else
+          {
+            console.log("No errors occured");
+            res.json({success: true, err:null});
+          }
+        });
+});
+
 
 app.post("/register", (req, res) => {
   console.log('Attempting to Register',req.body.username);
@@ -242,6 +274,9 @@ app.post("/register", (req, res) => {
             var data = saltHashPassword(req.body.password);
             var user = {
               'username': req.body.username,
+              'firstName': req.body.firstName,
+              'lastName': req.body.lastName,
+              'email': req.body.email,
               'salt': data.salt,
               'hash': data.hash
             };
@@ -258,7 +293,13 @@ app.post("/register", (req, res) => {
                 {
                   console.log("No errors occured while inserting user onto table");
                   console.log(rows);
-                  let token = jwt.sign({username: req.body.username}, 'keyboard cat 4ever', {expiresIn: 129600});
+                  let payload = {
+                    username: user.username,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                  }
+                  let token = jwt.sign(payload, jwtSecret, {expiresIn: 129600});
                   res.json({success:true, err:null, token});
                 }
               });
@@ -331,7 +372,7 @@ app.get('/getRanking/:token', (req, res) => {
                             console.log(err);
                         }
                         else {
-                            //console.log(rows);
+                            //console.log("hi   " + rows[0].arithmetic);
                             problemMatrix = rows;
                             var model = calcUserVector(userMatrix, problemMatrix);
                             var rankings = [(model.theta[0] + model.theta[1])*10, (model.theta[0] + model.theta[2])*10, (model.theta[0] + model.theta[3])*10, (model.theta[0] + model.theta[4])*10, (model.theta[0] + model.theta[5])*10, (model.theta[0] + model.theta[6])*10, (model.theta[0] + model.theta[7])*10, (model.theta[0] + model.theta[8])*10, (model.theta[0] + model.theta[9])*10];

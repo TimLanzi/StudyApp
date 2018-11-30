@@ -198,7 +198,7 @@ export default class Rankings extends React.Component {
             </main>
         );
         }
-        else if (this.state.loaded && this.state.probsCompleted < 1)
+        else if (this.state.loaded && this.state.probsCompleted < 15)
         {
             let decoded = jwt.decode(Auth.getToken());
 
@@ -211,7 +211,8 @@ export default class Rankings extends React.Component {
                     <Grid container wrap="nowrap" spacing={40}>
                         <Grid item xs={12} sm={6}>
                         <div align="left">
-                            <h4>You haven't done any problems yet. Get started on our practice page <Link to="/practiceQ">here</Link>!</h4>
+                            <h4>You haven't done enough problems for us to accurately calculate your rankings yet. Keep working on our practice page <Link to="/practiceQ">here</Link>!</h4>
+
                         </div>
                         </Grid>
                     <Grid item xs={12} sm={6}>
@@ -236,6 +237,7 @@ export default class Rankings extends React.Component {
         );
 
         }
+/*
         else if (this.state.loaded && this.state.probsCompletetd >= 1 && this.state.probsCompleted < 15)
         {
             let decoded = jwt.decode(Auth.getToken());
@@ -274,6 +276,7 @@ export default class Rankings extends React.Component {
         );
 
         }
+*/
         else //if (!this.state.loaded)
         {
         return (

@@ -20,7 +20,7 @@ class FlashcardLanding extends React.Component {
           <Grid item xs={6}>
             <div>
               <Paper className={classes.paper}>
-                <ButtonIcon button component={Link} to="/createFlashcard">
+                <ButtonIcon button component={Link} to="/createFlashcardSet">
                   <AddIcon />
                   <Typography align="center">
                     Create New Flashcard Set
