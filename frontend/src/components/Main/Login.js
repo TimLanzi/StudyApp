@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import Button from 'material-ui/Button';
-import TextField from 'material-ui/TextField';
-import FormLabel from '@material-ui/core/FormLabel';
+import { Typography,
+         Paper,
+         Button,
+         TextField,
+         FormLabel } from 'material-ui';
 import AuthService from "./AuthService";
 
 class Login extends React.Component {
