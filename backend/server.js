@@ -435,5 +435,72 @@ app.get('/getRanking/:token', (req, res) => {
     )
 });
 
+/* Account Settings Functions */
+app.post('/updateFields', (req, res) => {
+  console.log('in update fields');
+  let values = {
+      'firstName': req.body.firstName,
+      'lastName': req.body.lastName,
+      'email': req.body.email,
+  };
+  
+  connection.query(
+    "UPDATE users SET firstName = '"+values.firstName+"', lastName = '"+values.lastName+"', email = '"+values.email+"' WHERE username = '"+req.body.username+"'",
+    function (err, rows, fields) {
+      if(err) {
+        console.log('Error updating fields');
+        console.log(err);
+      }
+      else {
+        console.log('No errors occured');
+        let payload = {
+          username: req.body.username,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          email: values.email,
+        }
+        let token = jwt.sign(payload, jwtSecret, {expiresIn: 129600});
+        res.json({success: true, err: null, token});
+      }
+    });
+});
+
+app.post('/updatePassword', (req, res) => {
+  console.log('in update password');
+  let values = {
+    'newPassword': req.body.password,
+    'username': req.body.username,
+  },
+      data = saltHashPassword(values.newPassword);
+  
+  connection.query(
+    "SELECT salt, hash FROM users WHERE username = ?", values.username,
+    function (err, rows, fields) {
+      if(err) {
+        console.log('Error fetching old salt and hash.');
+        console.log(err);
+        res.json({success: false, err: err, message: 'Error fetching old salt and hash.'})
+      }
+      else if(checkPassword(rows[0].salt, rows[0].hash, values.newPassword)) {
+        res.json({success: false, err: null, message: 'New password must not match the old password.'});
+      }
+      else {
+        connection.query(
+          "UPDATE users SET salt = '"+data.salt+"', hash = '"+data.hash+"' WHERE username = '"+values.username+"'",
+          function (err, rows, fields) {
+            if(err) {
+              console.log('Error updating password');
+              console.log(err);
+            }
+            else {
+              console.log('No errors occured');
+              res.json({success: true, err: null, message: 'Password changed successfully.'});
+            }
+          });
+      }
+    }
+  )
+});
+
 // Start the server
 app.listen(port, () => console.log(`Server started on port ${port}`));

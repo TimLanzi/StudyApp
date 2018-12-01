@@ -8,7 +8,7 @@ export default class AuthService {
   }
 
   login(username, password) {
-    console.log("Attempting Login to ", this.domain, username, password);
+    //console.log("Attempting Login to ", this.domain, username, password);
     return this.fetch(`${this.domain}/login`, {
       method: "POST",
       body: JSON.stringify({
@@ -22,7 +22,7 @@ export default class AuthService {
   }
 
   register(username, password, firstName, lastName, email) {
-    console.log("Attempting to register ", this.domain, username, password);
+    //console.log("Attempting to register ", this.domain, username, password);
     return this.fetch(`${this.domain}/register`, {
       method: "POST",
       body: JSON.stringify({
@@ -36,6 +36,45 @@ export default class AuthService {
         this.setToken(res.token);
         return Promise.resolve(res);
     });
+  }
+
+  updateFields(firstName, lastName, email, username) {
+    if (typeof firstName === 'undefined') {
+      firstName = '';
+    }
+    if (typeof lastName === 'undefined') {
+      lastName = '';
+    }
+    if (typeof email === 'undefined') {
+      email = '';
+    }
+
+    return this.fetch(`${this.domain}/updateFields`, {
+      method: 'POST',
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        email,
+        username,
+      })
+    })
+    .then(res => {
+      this.setToken(res.token);
+      return Promise.resolve(res);
+    })
+    .then(() => console.log(this.getToken()));
+  }
+
+  updatePassword(password, username) {
+    return this.fetch(`${this.domain}/updatePassword`, {
+      method: 'POST',
+      body: JSON.stringify({
+        password,
+        username,
+      })
+    })
+    .then(res => alert(res.message))
+    .then(res => console.log(res));
   }
 
   loggedIn() {
