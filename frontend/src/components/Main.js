@@ -29,7 +29,6 @@ class Main extends React.Component {
           exact
           path="/" // An example of passing props to a component as it is rendered by the router
           render={() => <About classes={classes} />}
-          onEnter={requireAuth} //Require Auth not coded
         />
         <Route
           path="/FlashcardLanding" // An example of passing props to a component as it is rendered by the router

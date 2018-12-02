@@ -7,6 +7,19 @@ import AddIcon from "@material-ui/icons/NoteAdd";
 import { Link } from "react-router-dom";
 
 class FlashcardLanding extends React.Component {
+  //constructor
+  constructor(props){
+    super(props);
+    this.state = {
+        contents: []
+    };
+  }
+
+  componentDidMount(){
+    fetch("http://165.227.198.233:3001/getFlashcardSet")
+    .then(res => res.json())
+    .then(contents =>this.setState({ contents }));
+  }
   render() {
     const { classes } = this.props;
     return (
@@ -58,6 +71,11 @@ class FlashcardLanding extends React.Component {
             <Paper className={classes.paper}>xs=3</Paper>
           </Grid>
         </Grid>
+        {this.state.contents.map(flashcardSets => (
+            <li key={flashcardSets.id}>
+                {flashcardSets.name}
+            </li>
+        ))}
       </main>
     );
   }

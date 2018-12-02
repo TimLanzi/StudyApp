@@ -6,7 +6,6 @@ import { Typography,
          Grid } from 'material-ui';
 import AuthService from './AuthService.js';
 const jwt = require('jsonwebtoken');
-//const Auth = new AuthService();
 
 export default class Account extends React.Component {
   constructor(props) {
@@ -16,7 +15,6 @@ export default class Account extends React.Component {
       this.handlePasswordSubmit = this.handlePasswordSubmit.bind(this);
       this.Auth = new AuthService("http://165.227.198.233:3001");
       this.state = {
-        editField: null,
         username: jwt.decode(this.Auth.getToken()).username,
         firstName: jwt.decode(this.Auth.getToken()).firstName,
         lastName: jwt.decode(this.Auth.getToken()).lastName,
@@ -30,19 +28,17 @@ export default class Account extends React.Component {
 
   render() {
     const { classes } = this.props;
-    let token = jwt.decode(this.Auth.getToken());
     return (
       <main className={classes.content}>
         <div className={classes.toolbar} />
           <Typography align="center">
-            {/*<h3>Change Information About Your Account</h3>*/}
             <Grid container wrap="noWrap" spacing={40}>
               <Grid item xs={12} sm={6}>
                 <form>
                   <h2>Change First Name</h2>
                   <TextField
                     placeHolder="Change First Name"
-                    defaultValue={token.firstName}
+                    defaultValue={this.state.firstName}
                     name="firstName"
                     type="text"
                     label="First Name"
@@ -53,7 +49,7 @@ export default class Account extends React.Component {
                   <h2>Change Last Name</h2>
                   <TextField
                     placeHolder="Change Last Name"
-                    defaultValue={token.lastName}
+                    defaultValue={this.state.lastName}
                     name="lastName"
                     type="text"
                     label="Last Name"
@@ -64,7 +60,7 @@ export default class Account extends React.Component {
                   <h2>Change Email</h2>
                   <TextField
                     placeHolder="Change Email"
-                    defaultValue={token.email}
+                    defaultValue={this.state.email}
                     name="email"
                     type="text"
                     label="Email"
@@ -145,10 +141,6 @@ export default class Account extends React.Component {
     }
     else {
       this.Auth.updatePassword(this.state.password, this.state.username)
-        .then(res => {
-          //this.context.router.history.push('/account');
-          //alert(res.message);
-        })
         .catch(err => {
           alert(err);
         });

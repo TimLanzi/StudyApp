@@ -137,7 +137,7 @@ export default class Rankings extends React.Component {
                     <h1>{decoded.username}'s Rankings</h1>
                     <br/>
                     <Grid container wrap="nowrap" spacing={40}>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={6}>
                     <div align="left">
                     <h2>{"Overall Ranking: " + overall.toFixed(2)}</h2>
                     <h1>
@@ -177,8 +177,10 @@ export default class Rankings extends React.Component {
                     /></h1>
                     </div>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={28}>
                     <div align="left">
+                    <img src={require('../../img/success.jpg')} style={{width:600, height:840}}/>
+                    {/*
                     <strong>
                     <p>We're no strangers to love<br/>You know the rules and so do I<br/>A full commitment's what I'm thinking of<br/>You wouldn't get this from any other guy</p>
                     <p>I just wanna tell you how I'm feeling<br/>Gotta make you understand</p>
@@ -191,6 +193,7 @@ export default class Rankings extends React.Component {
                     <p>I just wanna tell you how I'm feeling<br/>Gotta make you understand</p>
                     <p>Never gonna give you up<br/>Never gonna let you down<br/>Never gonna run around and desert you<br/>Never gonna make you cry<br/>Never gonna say goodbye<br/>Never gonna tell a lie and hurt you<br/>Never gonna give you up<br/>Never gonna let you down<br/>Never gonna run around and desert you<br/>Never gonna make you cry<br/>Never gonna say goodbye<br/>Never gonna tell a lie and hurt you<br/>Never gonna give you up<br/>Never gonna let you down<br/>Never gonna run around and desert you<br/>Never gonna make you cry<br/>Never gonna say goodbye<br/>Never gonna tell a lie and hurt you</p>
                     </strong>
+                    */}
                     </div>
                     </Grid>
                     </Grid>
@@ -217,6 +220,8 @@ export default class Rankings extends React.Component {
                         </Grid>
                     <Grid item xs={12} sm={6}>
                     <div align="left">
+                    <img src={require('../../img/success.jpg')} style={{width:600, height:840}}/>
+                    {/*
                     <strong>
                     <p>We're no strangers to love<br/>You know the rules and so do I<br/>A full commitment's what I'm thinking of<br/>You wouldn't get this from any other guy</p>
                     <p>I just wanna tell you how I'm feeling<br/>Gotta make you understand</p>
@@ -229,6 +234,7 @@ export default class Rankings extends React.Component {
                     <p>I just wanna tell you how I'm feeling<br/>Gotta make you understand</p>
                     <p>Never gonna give you up<br/>Never gonna let you down<br/>Never gonna run around and desert you<br/>Never gonna make you cry<br/>Never gonna say goodbye<br/>Never gonna tell a lie and hurt you<br/>Never gonna give you up<br/>Never gonna let you down<br/>Never gonna run around and desert you<br/>Never gonna make you cry<br/>Never gonna say goodbye<br/>Never gonna tell a lie and hurt you<br/>Never gonna give you up<br/>Never gonna let you down<br/>Never gonna run around and desert you<br/>Never gonna make you cry<br/>Never gonna say goodbye<br/>Never gonna tell a lie and hurt you</p>
                     </strong>
+                    */}
                     </div>
                     </Grid>
                     </Grid>
