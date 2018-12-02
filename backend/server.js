@@ -14,7 +14,7 @@ var regressor = require('js-regression');
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.setHeader('Access-Control-Allow-Headers', 'Content-type,Authorization');
-//    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
 */
@@ -437,7 +437,6 @@ app.get('/getRanking/:token', (req, res) => {
 
 /* Account Settings Functions */
 app.post('/updateFields', (req, res) => {
-  console.log('in update fields');
   let values = {
       'firstName': req.body.firstName,
       'lastName': req.body.lastName,
@@ -466,7 +465,6 @@ app.post('/updateFields', (req, res) => {
 });
 
 app.post('/updatePassword', (req, res) => {
-  console.log('in update password');
   let values = {
     'newPassword': req.body.password,
     'username': req.body.username,
@@ -497,6 +495,31 @@ app.post('/updatePassword', (req, res) => {
               res.json({success: true, err: null, message: 'Password changed successfully.'});
             }
           });
+      }
+    }
+  )
+});
+
+/* Home page functions */
+let shuffleArray = function(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+app.get('/getVideos', (req, res) => {  
+  connection.query(
+    "SELECT * FROM youtube_videos",
+    function (err, rows, fields) {
+      if(err) {
+        console.log('Error fetching videos');
+        console.log(err);
+      }
+      else {
+        rows = shuffleArray(rows);
+        res.json(rows);
       }
     }
   )
