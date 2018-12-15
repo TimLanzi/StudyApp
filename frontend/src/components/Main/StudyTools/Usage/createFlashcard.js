@@ -7,10 +7,12 @@ import Grid from "material-ui/Grid";
 import Paper from "material-ui/Paper";
 import { Link } from "react-router-dom";
 import ButtonIcon from "material-ui/Button";
-import AddIcon from "@material-ui/icons/NoteAdd";
+import AddIcon from "@material-ui/icons/Backspace";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
+import Button from "material-ui/Button";
+import NewButton from '@material-ui/core/Button';
 
 const Auth = new AuthService();
 
@@ -28,79 +30,109 @@ export default class createFlashcard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      question: "",
-      answer: ""
+      front: "",
+      back: ""
     };
-
-    this.handleChangeQ = this.handleChangeQ.bind(this);
-    this.handleChangeA = this.handleChangeA.bind(this);
+    this.handleChangeF = this.handleChangeF.bind(this);
+    this.handleChangeB = this.handleChangeB.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  //for question event handling
-  handleChangeQ(event) {
-    this.setState({ question: event.target.value });
+  //for card front event handling
+  handleChangeF(event) {
+    this.setState({ front: event.target.value });
   }
 
-  //for answer event handling
-  handleChangeA(event) {
-    this.setState({ answer: event.target.value });
+  //for card back event handling
+  handleChangeB(event) {
+    this.setState({ back: event.target.value });
   }
 
   handleSubmit(event) {
     var token = Auth.getToken();
-    var question = this.state.question;
-    var answer = this.state.answer;
+    var front = this.state.front;
+    var back = this.state.back;
     fetch("http://165.227.198.233:3001/postFlashcard", {
         headers:{"Content-Type":"application/json"},
         method:"POST",
         body: JSON.stringify({
-            token,question, answer
+            token,front, back
         })
     }).then(res => console.log(res));
             
     alert("NEW FLASHCARD ADDED");
-    event.preventDefault();
+    //event.preventDefault();
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <main align="center" Style={styles}>
-        <br />
-        <br />
-        <br />
-        <br />
+      <main className={classes.content} align="center" Style={styles}>
+        <div className={classes.toolbar} />
+        <Grid container spacing={24}>
+        <Grid>
+          <NewButton color="primary" button component={Link} to="/Flashcard">
+          <Button
+              color="primary"
+              variant="raised"
+              size="large"
+              className={classes.cardButton}
+            >   
+              Back To Flashcards
+            </Button>
+          </NewButton>
+          </Grid>
+          <Grid item xs={6}>
         <form onSubmit={this.handleSubmit}>
           <label>
-            QUESTION:
+          <Paper className={classes.paper}>
+              <Typography variant="h3" align="center" component="h3">
+              <strong>Flashcard Front</strong>
             <br />
             <textarea
               rows="4"
               name="question"
               required
               type="text"
-              placeholder={"Type in a question"}
-              value={this.state.question}
-              onChange={this.handleChangeQ}
+              placeholder={"Type Front Text"}
+              value={this.state.front}
+              onChange={this.handleChangeF}
             />
+            </Typography>
+        </Paper>
           </label>
           <br />
+
+          <Paper className={classes.paper}>
+              <Typography variant="h3" align="center" component="h3">
           <label>
-            ANSWER:
-            <br />
+               Flashcard Back
+              <br />
             <textarea
               rows="4"
               name="answer"
               required
               type="text"
-              placeholder={"Type in an answer"}
-              value={this.state.answer}
-              onChange={this.handleChangeA}
+              placeholder={"Type Back Text"}
+              value={this.state.back}
+              onChange={this.handleChangeB}
             />
           </label>
-          <br />
-          <input type="submit" value="Add Flashcard" />
+         
+          </Typography>
+        </Paper>
+        <br />
+        <Button
+              color="primary"
+              variant="raised"
+              size="large"
+              className={classes.cardButton} 
+              type="submit" >
+                Add Flashcard
+          </Button>
         </form>
+        </Grid>
+        </Grid>
       </main>
     );
   }

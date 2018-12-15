@@ -29,14 +29,15 @@ export default class Baseline extends React.Component {
     this.state = {
       contents: [],
       questionSide: true,
-      problemNum: (Math.floor(Math.random() * 69) + 1),
+      problemNum: 0,
       prevProb: null,
+      problemNumbers: [],
     };
 }
     getProblemNumber()
     {
-        this.state.prevProb = this.state.problemNum;
-        this.state.problemNum = Math.floor(Math.random() * 69) + 1;
+        this.state.prevProb = this.state.problemNumbers[this.state.problemNum].problem_id;
+        this.state.problemNum = this.state.problemNum + 1;
         return this.state.problemNum;
     }
 
@@ -45,11 +46,29 @@ export default class Baseline extends React.Component {
         this.state.contents = newContents;
     }
 
-    componentDidMount(){
+    setProblemNumbers(problems){
+        this.state.problemNumbers = problems;
+    }
 
-    fetch("http://165.227.198.233:3001/getProblem/" + this.state.problemNum )
-      .then(res => res.json())
-      .then(contents => this.setState({ contents}));
+    componentDidMount(){
+      fetch("http://165.227.198.233:3001/getBaseline/")
+        .then(res => res.json())
+        .then(problemNumbers => {
+          var temp = [];
+          console.log(problemNumbers);
+          for(var i = 0; i < 15; i++){
+            temp.push(problemNumbers[i]);
+          }
+          this.setProblemNumbers(temp);
+        })
+        .then(() => {
+          fetch("http://165.227.198.233:3001/getProblem/" + this.state.problemNumbers[this.state.problemNum].problem_id)
+             .then(res => res.json())
+             .then(contents => {
+               this.setContents(contents)
+              });
+        });
+      
     }
   
 
@@ -65,13 +84,17 @@ export default class Baseline extends React.Component {
   toggleAns(ans) {
     this.setState({ questionSide: this.state.questionSide ? false : true });
     console.log(this.state.questionSide);
+    console.log(this.state.problemNum);
     if (this.state.questionSide)
     {
+      this.getProblemNumber();
+      if(this.state.problemNum < 15){
         console.log("before fetch");
-        fetch("http://165.227.198.233:3001/getProblem/"+this.getProblemNumber())
-             .then(res => res.json())
-             .then(contents => this.setContents(contents));
+        fetch("http://165.227.198.233:3001/getProblem/"+this.state.problemNumbers[this.state.problemNum].problem_id)
+              .then(res => res.json())
+              .then(contents => this.setContents(contents));
         console.log("after fetch");
+      }
     }
     else
     {
@@ -92,164 +115,184 @@ export default class Baseline extends React.Component {
 
   render() {
     const { classes } = this.props;
-    if (this.state.questionSide && Auth.loggedIn())
-    {
-    return (
-      <main className={classes.content} Style="styles">
-        <div className={classes.toolbar} margin-top="-100px" />
-        <Paper className={classes.paper}>
-          <Typography variant="headline" align="center" component="h3">
-            {this.state.contents.map(content => (
-               <div key={content.id}>
-                <Latex>{content.question}</Latex>
-               </div>
-            ))}
-            <br />
-            <br />
-          </Typography>
-          <form onSubmit={this.handleSubmit}>
-            <FormControl
-              component="fieldset"
-              required
-              className={classes.formControl}
-            >
-              <FormLabel component="legend">
-                When you are ready to see the answer, click "Show Answer".
-              </FormLabel>
-              <RadioGroup
-                aria-label="answer"
-                name="answer1"
-                className={classes.group}
-                value={this.state.value}
-                onChange={this.handleChange}
-              />
-              <Button
-                className={classes.nextQ}
-                type=""
-                value="next"
-                onClick={() => this.toggleAns()}
-              >
-                Show Answer
-             </Button>
-            </FormControl>
-          </form>
-        </Paper>
-      </main>
-    );
-    }
-    else if(!this.state.questionSide && Auth.loggedIn())
-    {
-     return (
-      <main className={classes.content} Style="style s">
-        <div className={classes.toolbar} margin-top="-100px" />
-        <Paper className={classes.paper}>
-          <Typography variant="headline" align="center" component="h3">
-            {this.state.contents.map(content => (
-               <div key={content.id}>
-                <Latex>{"$"+content.solution+"$"}</Latex>
-               </div>
-            ))}
-            <br />
-            <br />
-          </Typography>
-          <form onSubmit={this.handleSubmit}>
-            <FormControl
-              component="fieldset"
-              required
-              className={classes.formControl}
-            >
-              <FormLabel component="legend">
-               Grade youself based on how you feel you did. 
-              </FormLabel>
+    if(this.state.problemNum < 15){
+      if (this.state.questionSide && Auth.loggedIn())
+      {
+      return (
+        <main className={classes.content} Style="styles">
+          <div className={classes.toolbar} margin-top="-100px" />
+          <Paper className={classes.paper}>
+            <Typography variant="headline" align="center" component="h3">
+              {this.state.contents.map(content => (
+                <div key={content.id}>
+                  <Latex>{content.question}</Latex>
+                </div>
+              ))}
               <br />
-              <RadioGroup
-                aria-label="answer"
-                name="answer1"
-                className={classes.group}
-                value={this.state.value}
-                onChange={this.handleChange}
-              />
-              <Grid container spacing={8} direction="row">
-                <Grid item >
-                     <Button
-                       variant="contained"
-                       className={classes.oneButton}
-                       type=""
-                       value="next"
-                       onClick={() => this.toggleAns(1)}
-                     >
-                     <h3> 1 </h3> 
-                     </Button>
+              <br />
+            </Typography>
+            <form onSubmit={this.handleSubmit}>
+              <FormControl
+                component="fieldset"
+                required
+                className={classes.formControl}
+              >
+                <FormLabel component="legend">
+                  When you are ready to see the answer, click "Show Answer".
+                </FormLabel>
+                <RadioGroup
+                  aria-label="answer"
+                  name="answer1"
+                  className={classes.group}
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                />
+                <Button
+                  className={classes.nextQ}
+                  type=""
+                  value="next"
+                  onClick={() => this.toggleAns()}
+                >
+                  Show Answer
+              </Button>
+              </FormControl>
+            </form>
+          </Paper>
+        </main>
+      );
+      }
+      else if(!this.state.questionSide && Auth.loggedIn())
+      {
+      return (
+        <main className={classes.content} Style="style s">
+          <div className={classes.toolbar} margin-top="-100px" />
+          <Paper className={classes.paper}>
+            <Typography variant="headline" align="center" component="h3">
+              {this.state.contents.map(content => (
+                <div key={content.id}>
+                  <Latex>{"$"+content.solution+"$"}</Latex>
+                </div>
+              ))}
+              <br />
+              <br />
+            </Typography>
+            <form onSubmit={this.handleSubmit}>
+              <FormControl
+                component="fieldset"
+                required
+                className={classes.formControl}
+              >
+                <FormLabel component="legend">
+                Grade youself based on how you feel you did. 
+                </FormLabel>
+                <br />
+                <RadioGroup
+                  aria-label="answer"
+                  name="answer1"
+                  className={classes.group}
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                />
+                <Grid container spacing={8} direction="row">
+                  <Grid item >
+                      <Button
+                        variant="contained"
+                        className={classes.oneButton}
+                        type=""
+                        value="next"
+                        onClick={() => this.toggleAns(1)}
+                      >
+                      <h3> 1 </h3> 
+                      </Button>
+                  </Grid>
+                  <Grid item >
+                      <Button
+                        className={classes.twoButton}
+                        type=""
+                        value="next"
+                        onClick={() => this.toggleAns(2)}
+                      >
+                      <h3> 2 </h3>
+                      </Button>
+                  </Grid>
+                  <Grid item >
+                      <Button
+                        className={classes.threeButton}
+                        type=""
+                        value="next"
+                        onClick={() => this.toggleAns(3)}
+                      >
+                      <h3> 3 </h3>
+                      </Button>
+                  </Grid>
+                  <Grid item >
+                      <Button
+                        className={classes.fourButton}
+                        type=""
+                        value="next"
+                        onClick={() => this.toggleAns(4)}
+                      >
+                      <h3> 4 </h3>
+                      </Button>
+                  </Grid>
+                  <Grid item >
+                      <Button
+                        className={classes.fiveButton}
+                        type=""
+                        value="next"
+                        onClick={() => this.toggleAns(5)}
+                      >
+                      <h3> 5 </h3>
+                      </Button>
+                  </Grid>
                 </Grid>
-                <Grid item >
-                     <Button
-                       className={classes.twoButton}
-                       type=""
-                       value="next"
-                       onClick={() => this.toggleAns(2)}
-                     >
-                     <h3> 2 </h3>
-                     </Button>
-                </Grid>
-                <Grid item >
-                     <Button
-                       className={classes.threeButton}
-                       type=""
-                       value="next"
-                       onClick={() => this.toggleAns(3)}
-                     >
-                     <h3> 3 </h3>
-                     </Button>
-                </Grid>
-                <Grid item >
-                     <Button
-                       className={classes.fourButton}
-                       type=""
-                       value="next"
-                       onClick={() => this.toggleAns(4)}
-                     >
-                     <h3> 4 </h3>
-                     </Button>
-                </Grid>
-                <Grid item >
-                     <Button
-                       className={classes.fiveButton}
-                       type=""
-                       value="next"
-                       onClick={() => this.toggleAns(5)}
-                     >
-                     <h3> 5 </h3>
-                     </Button>
-                </Grid>
-              </Grid>
-            </FormControl>
-          </form>
-        </Paper>
-      </main>
-    );
+              </FormControl>
+            </form>
+          </Paper>
+        </main>
+      );
 
+      }
+      else
+      {
+          return (
+            <main className={classes.content} Style="styles">
+              <div className={classes.toolbar} margin-top="-100px" />
+                  <Typography variant="headline" align="center" component="h3">
+                      {this.state.contents.map(content => (
+                      <div key={content.id}>
+                          You are not logged in. Log in or create an account to start practicing!
+                      <br />
+                      <br />
+                      <Button component={Link} to="/login">
+                          Login or Register Now
+                      </Button>
+                      </div> 
+                      ))}
+                  </Typography>
+              </main>
+          );
+      }
     }
-    else
-    {
-        return (
-           <main className={classes.content} Style="styles">
-             <div className={classes.toolbar} margin-top="-100px" />
-                 <Typography variant="headline" align="center" component="h3">
-                    {this.state.contents.map(content => (
-                     <div key={content.id}>
-                        You are not logged in. Log in or create an account to start practicing!
-                     <br />
-                     <br />
-                     <Button component={Link} to="/login">
-                        Login or Register Now
-                     </Button>
-                     </div> 
-                    ))}
-                 </Typography>
-            </main>
-        );
+    else{
+      return (
+        <main className={classes.content} Style="styles">
+          <div className={classes.toolbar} margin-top="-100px" />
+              <Typography variant="headline" align="center" component="h3">
+                  {this.state.contents.map(content => (
+                  <div key={content.id}>
+                      You've completed the 
+                  <br />
+                  <br />
+                  <Button component={Link} to="/login">
+                      Login or Register Now
+                  </Button>
+                  </div> 
+                  ))}
+              </Typography>
+          </main>
+      );
     }
   }
-
 }
 

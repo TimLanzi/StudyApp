@@ -258,6 +258,54 @@ app.get("/getProblem/:id", (req, res) => {
   );
 });
 
+/* Gets flashcard set */
+app.get("/getFlashcardSet/:token", (req, res) => {
+  var decoded = jwt.decode(req.params.token);
+  connection.query(
+    "SELECT setname FROM flashcard_sets WHERE username = ?",decoded.username,
+    function(err, rows, fields)
+    {
+      if (err) {
+        console.log("Error while performing Query.");
+      }
+      res.send(rows);
+      console.log(rows);
+    }
+  );
+});
+
+//Returns flashcards
+/* Gets flashcard set */
+app.get("/getFlashcard/:token", (req, res) => {
+  var decoded = jwt.decode(req.params.token);
+  connection.query(
+    "SELECT front_text, back_text FROM flashcards WHERE username = ?",decoded.username,
+    function(err, rows, fields)
+    {
+      if (err) {
+        console.log("Error while performing Query.");
+      }
+      res.send(rows);
+      console.log(rows);
+    }
+  );
+});
+
+/* Returns a problem and its solution from the DB to the frontend */
+app.get("/getBaseline/", (req, res) => {
+  connection.query(
+    "SELECT problem_id FROM problems ORDER BY RAND() LIMIT 15",
+    function(err, rows, fields)
+    {
+      if (err) {
+        console.log("Error while performing Query.");
+      }
+      res.send(rows);
+      console.log(rows);
+    }
+  );
+});
+
 /* Posts problem results to the DB */
 app.post("/postResult", (req, res) => {
     console.log(req.body);
@@ -290,12 +338,12 @@ app.post("/postFlashcard", (req, res) => {
      var decoded = jwt.decode(req.body.token);
      var result = {
         'username': decoded.username,
-        'frontText': req.body.question,
-        'backText': req.body.answer
+        'front_text': req.body.front,
+        'back_text': req.body.back
       };
       console.log("Attempting to enter flashcard into DB");
       connection.query(
-        "INSERT INTO flashcardTest SET ?", result,
+        "INSERT INTO flashcards SET ?", result,
         function(err, rows, fields)
         {
           if(err)
@@ -316,7 +364,7 @@ app.post("/postFlashcardSet", (req, res) => {
      var decoded = jwt.decode(req.body.token);
      var result = {
         'username': decoded.username,
-        'name': req.body.name
+        'setname': req.body.name
       };
       console.log("Attempting to enter flashcard set into DB");
       connection.query(

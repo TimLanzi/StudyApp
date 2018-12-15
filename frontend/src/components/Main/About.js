@@ -19,10 +19,11 @@ export default class HomePage extends React.Component {
     fetch('http://165.227.198.233:3001/getVideos')
       .then(res => res.json())
       .then(videos => this.setState({videos}));
-      //.then(() => this.setState({videos: JSON.stringify(this.state.videos)}));
   }
 
-
+  _onReady(event) {
+    event.target.pauseVideo();
+  }
 
   render() {
     const { classes } = this.props;
@@ -41,13 +42,14 @@ export default class HomePage extends React.Component {
             {Auth.loggedIn() ? `Welcome to StudyApp, ${jwt.decode(Auth.getToken()).username}!` : "Welcome to StudyApp! Create an account to get started!" }
           </h1>
           <br/><br/>
-          <p>
+          {/*<p>
             <strong>
             Paragraph about our purpose for the website.
             </strong>
-          </p>
+          </p>*/}
           <br/>
           <h2>Check out some resources from YouTube</h2>
+          <hr/>
           <br/>
           <Grid container spacing={24}>
             <Grid item xs={12} sm={6}>

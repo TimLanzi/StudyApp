@@ -1,13 +1,12 @@
 /*
   This file contains CSS classes and parameters to be injected into our frame using withStyles()
 */
-//import blue from "material-ui/colors/purple";
-import red from "material-ui/colors/red";
-import orange from "material-ui/colors/orange";
-import yellow from "material-ui/colors/yellow";
-import lightGreen from "material-ui/colors/lightGreen";
-import green from "material-ui/colors/green";
-import blue from "material-ui/colors/blue";
+import { red, 
+         orange,
+         yellow,
+         lightGreen,
+         green,
+         blue } from 'material-ui/colors';
 import { createMuiTheme } from "@material-ui/core/styles";
 const drawerWidth = 200; // Drawer Width Const is applied in styles.drawerPaper.width
 
@@ -56,7 +55,7 @@ export default theme => ({
   },
   toolbar: theme.mixins.toolbar,
   paper: {
-    flexGrow: 1,
+    //flexGrow: 1,
     padding: theme.spacing.unit * 2,
     textAlign: "center",
     color: theme.palette.text.secondary

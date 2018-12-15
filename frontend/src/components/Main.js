@@ -35,7 +35,7 @@ class Main extends React.Component {
           render={() => <FlashcardLanding classes={classes} />}
         />
         <Route
-          path="/flashcards"
+          path="/Flashcard"
           render={() => <Flashcard classes={classes} />}
         />
         <Route

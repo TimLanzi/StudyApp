@@ -7,10 +7,13 @@ import Grid from "material-ui/Grid";
 import Paper from "material-ui/Paper";
 import { Link } from "react-router-dom";
 import ButtonIcon from "material-ui/Button";
-import AddIcon from "@material-ui/icons/NoteAdd";
+import AddIcon from "@material-ui/icons/Add";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
+import Button from "material-ui/Button";
+import NewButton from '@material-ui/core/Button';
+
 
 const Auth = new AuthService();
 
@@ -56,29 +59,54 @@ export default class CreateFlashcardSet extends React.Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <main align="center" Style={styles}>
-        <br />
-        <br />
-        <br />
-        <br />
+      <main className={classes.content} align="center" Style={styles}>
+        <div className={classes.toolbar} />
+        <Grid container spacing={24}>
+        <Grid>
+          <NewButton color="primary" button component={Link} to="/FlashcardLanding">
+          <Button
+              color="primary"
+              variant="raised"
+              size="large"
+              className={classes.cardButton}
+            >   
+              Back To Flashcards
+            </Button>
+          </NewButton>
+          </Grid>
+          <Grid item xs={6}>
+        <Paper className={classes.paper}>
         <form onSubmit={this.handleSubmit}>
           <label>
-            NEW FLASHCARD SET NAME:
+            <Typography align="center">
+            New Flashcard Set Name
             <br />
             <textarea
-              rows="2"
+              rows="4"
               name="name"
               required
               type="text"
-              placeholder={"Type in new flashcard set name"}
+              placeholder={"Name of new flashcard set"}
               value={this.state.name}
               onChange={this.handleChange}
             />
+            </Typography>
           </label>
           <br />
-          <input type="submit" value="Add New Flashcard Set" />
+          <Button
+              color="primary"
+              variant="raised"
+              size="large"
+              className={classes.cardButton} 
+              type="submit" >
+                Add New Flashcard Set
+          </Button>
         </form>
+      </Paper>
+      </Grid>
+      </Grid>
     </main>
     );
     }
