@@ -61,7 +61,7 @@ export default class createFlashcard extends React.Component {
     }).then(res => console.log(res));
             
     alert("NEW FLASHCARD ADDED");
-    //event.preventDefault();
+    event.preventDefault();
   }
 
   render() {

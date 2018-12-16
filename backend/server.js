@@ -258,7 +258,7 @@ app.get("/getProblem/:id", (req, res) => {
   );
 });
 
-/* Gets flashcard set */
+/* Returns flashcard set */
 app.get("/getFlashcardSet/:token", (req, res) => {
   var decoded = jwt.decode(req.params.token);
   connection.query(
@@ -275,7 +275,6 @@ app.get("/getFlashcardSet/:token", (req, res) => {
 });
 
 //Returns flashcards
-/* Gets flashcard set */
 app.get("/getFlashcard/:token", (req, res) => {
   var decoded = jwt.decode(req.params.token);
   connection.query(
@@ -339,7 +338,8 @@ app.post("/postFlashcard", (req, res) => {
      var result = {
         'username': decoded.username,
         'front_text': req.body.front,
-        'back_text': req.body.back
+        'back_text': req.body.back,
+        //'setname': decoded.username
       };
       console.log("Attempting to enter flashcard into DB");
       connection.query(
@@ -386,7 +386,7 @@ app.post("/postFlashcardSet", (req, res) => {
 
 /* Rankings functions*/
 
-// Fucntion to calculate the user vector through linear regression
+// Function to calculate the user vector through linear regression
 var calcUserVector = function(userM, probM)
 {   
     var data = [];

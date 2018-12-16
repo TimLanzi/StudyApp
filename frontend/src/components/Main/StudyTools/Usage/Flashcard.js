@@ -77,6 +77,7 @@ export default class Flashcard extends React.Component {
         <Card raised className={classes.card}>
           <CardContent>
             <Typography variant="headline" align="center" component="h3">
+            <strong>FLIP TO CARD BACK</strong>
             {this.state.contents.map(content => (
                <div key={content.id}>
                 <strong>{content.frontText}</strong>
@@ -125,6 +126,7 @@ export default class Flashcard extends React.Component {
         <Card raised className={classes.card}>
           <CardContent>
             <Typography variant="headline" align="center" component="h3">
+            <strong>FLIP TO CARD FRONT</strong>
             {this.state.contents.map(content => (
                <div key={content.id}>
                 <strong>{content.backText}</strong>

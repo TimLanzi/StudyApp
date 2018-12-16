@@ -43,7 +43,7 @@ export default class Baseline extends React.Component {
 
     setContents(newContents)
     {
-        this.state.contents = newContents;
+        this.setState({contents: newContents});
     }
 
     setProblemNumbers(problems){
@@ -64,8 +64,8 @@ export default class Baseline extends React.Component {
         .then(() => {
           fetch("http://165.227.198.233:3001/getProblem/" + this.state.problemNumbers[this.state.problemNum].problem_id)
              .then(res => res.json())
-             .then(newContent => {
-               this.setState({contents: newContent});
+             .then(contents => {
+               this.setContents(contents)
               });
         });
       
@@ -98,8 +98,7 @@ export default class Baseline extends React.Component {
     }
     else
     {
-      console.log(Auth.getToken() + "'s answer for problem #" + (this.state.problemNum-1) + " is " + ans);
-      var token = Auth.getToken();
+      console.log(Auth.getToken() + "'s answer for problem #" + (this.state.problemNum-1) + " is " + ans);      var token = Auth.getToken();
       var problem = this.state.prevProb;
       fetch("http://165.227.198.233:3001/postResult", {
         headers: {"Content-Type": "application/json"},
