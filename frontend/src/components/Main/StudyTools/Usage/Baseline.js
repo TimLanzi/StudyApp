@@ -87,12 +87,13 @@ export default class Baseline extends React.Component {
     console.log(this.state.problemNum);
     if (this.state.questionSide)
     {
-      this.getProblemNumber();
       if(this.state.problemNum < 15){
+        //this.getProblemNumber();
         console.log("before fetch");
         fetch("http://165.227.198.233:3001/getProblem/"+this.state.problemNumbers[this.state.problemNum].problem_id)
               .then(res => res.json())
-              .then(contents => this.setContents(contents));
+              .then(contents => this.setContents(contents))
+              .then(() => this.getProblemNumber());
         console.log("after fetch");
       }
     }
@@ -115,6 +116,7 @@ export default class Baseline extends React.Component {
 
   render() {
     const { classes } = this.props;
+//    this.getProblemNumber();
     if(this.state.problemNum < 15){
       if (this.state.questionSide && Auth.loggedIn())
       {
