@@ -31,7 +31,8 @@ export default class createFlashcard extends React.Component {
     super(props);
     this.state = {
       front: "",
-      back: ""
+      back: "",
+      //setname: 
     };
     this.handleChangeF = this.handleChangeF.bind(this);
     this.handleChangeB = this.handleChangeB.bind(this);
@@ -51,12 +52,14 @@ export default class createFlashcard extends React.Component {
   handleSubmit(event) {
     var token = Auth.getToken();
     var front = this.state.front;
+    //var { setname } = this.props.location.state;
     var back = this.state.back;
+    //console.log(setname);
     fetch("http://165.227.198.233:3001/postFlashcard", {
         headers:{"Content-Type":"application/json"},
         method:"POST",
         body: JSON.stringify({
-            token,front, back
+            token,front, back, 
         })
     }).then(res => console.log(res));
             

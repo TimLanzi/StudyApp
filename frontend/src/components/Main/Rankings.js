@@ -157,7 +157,7 @@ export default class Rankings extends React.Component {
                                     value={Math.round(basic)}
                                     starColor={"#2196f3"}
                                 /></h1>
-                                <h2>{"Intemediate Problems: " + intermediate.toFixed(2)}</h2>
+                                <h2>{"Intermediate Problems: " + intermediate.toFixed(2)}</h2>
                                 <h1>
                                 <StarRatingComponent
                                     name="intermediate"

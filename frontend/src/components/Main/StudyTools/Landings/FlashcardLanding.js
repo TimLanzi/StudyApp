@@ -56,7 +56,7 @@ export class FlashcardLanding extends React.Component {
             <Grid item xs={6}>
               <div key={content.setid}>
               <Paper className={classes.paper}>
-                <ButtonIcon color="primary" component={Link} to="/Flashcard">
+                <ButtonIcon color="primary" component={Link} to={{pathname: "/Flashcard", state: {setname: content.setname}}}>
                     <SetIcon />
                       {content.setname} Flashcard Set 
                 </ButtonIcon>
