@@ -1,7 +1,7 @@
 //createFlashcard.js
 import React from "react";
 //import form from "material-ui/Form";
-import AuthService from "../../AuthService";
+import AuthService from "../../../../utils/AuthService";
 import { Typography, Card, CardActions, CardContent, Button } from '@material-ui/core';
 // import Typography from "material-ui/Typography";
 import { Link } from "react-router-dom";

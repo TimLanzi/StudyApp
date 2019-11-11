@@ -10,7 +10,7 @@ import { Add, Backup } from '@material-ui/icons';
 // import AddIcon from "@material-ui/icons/NoteAdd";
 // import SetIcon from "@material-ui/icons/Ballot";
 import { Link } from "react-router-dom";
-import AuthService from '../../AuthService';
+import AuthService from '../../../../utils/AuthService';
 const Auth =  new AuthService();
 
 export class FlashcardLanding extends React.Component {

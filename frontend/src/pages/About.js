@@ -4,7 +4,7 @@ import React from "react";
 //          Grid } from "material-ui";
 import { Typography, Paper, Grid } from '@material-ui/core';
 import YouTube from 'react-youtube';
-import AuthService from "./AuthService";
+import AuthService from "../utils/AuthService";
 import jwtDecode from 'jwt-decode'
 const Auth = new AuthService();
 // const jwt = require('jsonwebtoken');

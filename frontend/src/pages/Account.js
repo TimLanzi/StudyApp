@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 //          TextField, 
 //          Grid } from 'material-ui';
 import { Typography, Button, TextField, Grid } from '@material-ui/core';
-import AuthService from './AuthService.js';
+import AuthService from '../utils/AuthService';
 // const jwt = require('jsonwebtoken');
 import jwtDecode from 'jwt-decode'
 

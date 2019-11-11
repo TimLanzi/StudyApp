@@ -3,7 +3,7 @@ import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import StarRatingComponent from 'react-star-rating-component';
 import { Link } from 'react-router-dom';
-import AuthService from './AuthService';
+import AuthService from '../utils/AuthService';
 // const jwt = require('jsonwebtoken');
 import jwtDecode from 'jwt-decode'
 const Auth = new AuthService();
@@ -180,7 +180,7 @@ export default class Rankings extends React.Component {
                             </Grid>
                             <Grid item xs={28}>
                                 <div align="left">
-                                <img src={require('../../img/success.jpg')} style={{width:600, height:840}}/>
+                                <img src={require('../img/success.jpg')} style={{width:600, height:840}}/>
                                 {/*
                                 <strong>
                                 <p>We're no strangers to love<br/>You know the rules and so do I<br/>A full commitment's what I'm thinking of<br/>You wouldn't get this from any other guy</p>
@@ -221,7 +221,7 @@ export default class Rankings extends React.Component {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                         <div align="left">
-                        <img src={require('../../img/success.jpg')} style={{width:600, height:840}}/>
+                        <img src={require('../img/success.jpg')} style={{width:600, height:840}}/>
                         {/*
                         <strong>
                         <p>We're no strangers to love<br/>You know the rules and so do I<br/>A full commitment's what I'm thinking of<br/>You wouldn't get this from any other guy</p>

@@ -1,5 +1,5 @@
 import "../../../../../node_modules/katex/dist/katex.min.css"
-import AuthService from  "../../AuthService";
+import AuthService from  "../../../../utils/AuthService";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Paper, Typography, RadioGroup, FormControl, FormLabel, Button, Grid } from "@material-ui/core";

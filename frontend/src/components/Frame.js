@@ -1,16 +1,16 @@
 /*
   This file composes the central components of our application into a Frame that will dynamically render the webpage.
 */
-import Head from "./Frame/Head";
-import Main from "./Main";
-import NavBar from "./Frame/NavBar";
+import Head from "./layout/Head";
+import Main from "../App";
+import NavBar from "./layout/NavBar";
 import PropTypes from "prop-types";
 import React from "react";
 import { Switch } from "react-router-dom";
-import theme from "./theme";
+import theme from "../styles/theme";
 import { withStyles } from '@material-ui/core'
 // import { withStyles } from "material-ui/styles";
-import AuthService from "./Main/AuthService";
+import AuthService from "../utils/AuthService";
 
 const Auth = new AuthService();
 
@@ -47,9 +47,8 @@ class Frame extends React.Component {
         {/* The NavBar is the navigation center displayed on the left side of the webpage. */}
         <NavBar history={this.props.history} className={classes.drawerPaper} classes={classes} />
         {/* This component is used to hold Routes, but in this case We've encapsulated routing into the "Main" component */}
-        <Switch>
+        
           <Main history={this.props.history} classes={classes} />
-        </Switch>
       </div>
     );
   }

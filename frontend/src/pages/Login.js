@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 //          TextField,
 //          FormLabel } from 'material-ui';
 import { Typography, Paper, Button, TextField, FormLabel } from '@material-ui/core';
-import AuthService from "./AuthService";
+import AuthService from "../utils/AuthService";
 
 class Login extends React.Component {
   constructor() {

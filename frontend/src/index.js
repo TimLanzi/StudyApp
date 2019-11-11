@@ -5,14 +5,6 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
-import Frame from "./components/Frame";
+import App from './App';
 
-ReactDOM.render(
-  <BrowserRouter>
-    <div>
-      <Frame />
-    </div>
-  </BrowserRouter>,
-  document.getElementById("root")
-);
+ReactDOM.render(<App />, document.getElementById("root"));
