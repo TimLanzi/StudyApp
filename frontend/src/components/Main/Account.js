@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Typography, 
-         Button, 
-         TextField, 
-         Grid } from 'material-ui';
+// import { Typography, 
+//          Button, 
+//          TextField, 
+//          Grid } from 'material-ui';
+import { Typography, Button, TextField, Grid } from '@material-ui/core';
 import AuthService from './AuthService.js';
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
+import jwtDecode from 'jwt-decode'
 
 export default class Account extends React.Component {
   constructor(props) {
@@ -13,12 +15,13 @@ export default class Account extends React.Component {
       this.handleChange = this.handleChange.bind(this);
       this.handleFormSubmit = this.handleFormSubmit.bind(this);
       this.handlePasswordSubmit = this.handlePasswordSubmit.bind(this);
-      this.Auth = new AuthService("http://165.227.198.233:3001");
+      this.Auth = new AuthService(process.env.REACT_APP_BACKEND_URL);
+      const token = jwtDecode(this.Auth.getToken());
       this.state = {
-        username: jwt.decode(this.Auth.getToken()).username,
-        firstName: jwt.decode(this.Auth.getToken()).firstName,
-        lastName: jwt.decode(this.Auth.getToken()).lastName,
-        email: jwt.decode(this.Auth.getToken()).email,
+        username: token.username,
+        firstName: token.firstName,
+        lastName: token.lastName,
+        email: token.email,
       };
   }
     

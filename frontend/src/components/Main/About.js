@@ -1,11 +1,13 @@
 import React from "react";
-import { Typography,
-         Paper,
-         Grid } from "material-ui";
+// import { Typography,
+//          Paper,
+//          Grid } from "material-ui";
+import { Typography, Paper, Grid } from '@material-ui/core';
 import YouTube from 'react-youtube';
 import AuthService from "./AuthService";
+import jwtDecode from 'jwt-decode'
 const Auth = new AuthService();
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 
 export default class HomePage extends React.Component {
   constructor(props) {
@@ -16,7 +18,7 @@ export default class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://165.227.198.233:3001/getVideos')
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/getVideos`)
       .then(res => res.json())
       .then(videos => this.setState({videos}));
   }
@@ -39,7 +41,7 @@ export default class HomePage extends React.Component {
         <div className={classes.toolbar} />
         <Typography align="center">
           <h1>
-            {Auth.loggedIn() ? `Welcome to StudyApp, ${jwt.decode(Auth.getToken()).username}!` : "Welcome to StudyApp! Create an account to get started!" }
+            {Auth.loggedIn() ? `Welcome to StudyApp, ${jwtDecode(Auth.getToken()).username}!` : "Welcome to StudyApp! Create an account to get started!" }
           </h1>
           <br/><br/>
           {/*<p>

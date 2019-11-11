@@ -1,11 +1,14 @@
 import React from "react";
-import Typography from "material-ui/Typography";
-import Grid from "material-ui/Grid";
-import Paper from "material-ui/Paper";
-import Button from "material-ui/Button";
-import ButtonIcon from "material-ui/Button";
-import AddIcon from "@material-ui/icons/NoteAdd";
-import SetIcon from "@material-ui/icons/Ballot";
+// import Typography from "material-ui/Typography";
+// import Grid from "material-ui/Grid";
+// import Paper from "material-ui/Paper";
+// import Button from "material-ui/Button";
+// import ButtonIcon from "material-ui/Button";
+
+import { Typography, Grid, Paper, Button, IconButton } from '@material-ui/core';
+import { Add, Backup } from '@material-ui/icons';
+// import AddIcon from "@material-ui/icons/NoteAdd";
+// import SetIcon from "@material-ui/icons/Ballot";
 import { Link } from "react-router-dom";
 import AuthService from '../../AuthService';
 const Auth =  new AuthService();
@@ -22,7 +25,7 @@ export class FlashcardLanding extends React.Component {
   componentDidMount(){
     if (Auth.loggedIn())
     {
-      fetch("http://165.227.198.233:3001/getFlashcardSet/"+Auth.getToken())
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/getFlashcardSet/${Auth.getToken()}`)
       .then(res => res.json())
       .then(contents =>this.setState({ contents }));
     }
@@ -43,12 +46,12 @@ export class FlashcardLanding extends React.Component {
           <Grid item xs={6}>
             <div>
               <Paper color="primary" className={classes.paper}>
-                <ButtonIcon button component={Link} to="/createFlashcardSet">
-                  <AddIcon />
+                <IconButton button component={Link} to="/createFlashcardSet">
+                  <Add />
                   <Typography align="center">
                     Create New Flashcard Set
                   </Typography>
-                </ButtonIcon>
+                </IconButton>
               </Paper>
             </div>
           </Grid>
@@ -56,10 +59,10 @@ export class FlashcardLanding extends React.Component {
             <Grid item xs={6}>
               <div key={content.setid}>
               <Paper className={classes.paper}>
-                <ButtonIcon color="primary" component={Link} to={{pathname: "/Flashcard", state: {setname: content.setname}}}>
-                    <SetIcon />
+                <IconButton color="primary" component={Link} to={{pathname: "/Flashcard", state: {setname: content.setname}}}>
+                    <Backup />
                       {content.setname} Flashcard Set 
-                </ButtonIcon>
+                </IconButton>
               </Paper>
               </div> 
             </Grid>

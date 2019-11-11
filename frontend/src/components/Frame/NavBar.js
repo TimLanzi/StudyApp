@@ -1,11 +1,13 @@
 import React from "react";
-import Drawer from "material-ui/Drawer";
-import List, { ListItem, ListItemIcon, ListItemText } from "material-ui/List";
-import Typography from "material-ui/Typography";
-import Divider from "material-ui/Divider";
-import ShareIcon from "@material-ui/icons/Share";
-import AssignIcon from "@material-ui/icons/Assignment";
-import AssessIcon from "@material-ui/icons/Assessment";
+// import Drawer from "material-ui/Drawer";
+// import List, { ListItem, ListItemIcon, ListItemText } from "material-ui/List";
+// import Typography from "material-ui/Typography";
+// import Divider from "material-ui/Divider";
+import { List, ListItem, ListItemIcon, ListItemText, Typography, Divider, Drawer } from '@material-ui/core';
+import { Share, Assignment, AccessTime} from '@material-ui/icons';
+// import ShareIcon from "@material-ui/icons/Share";
+// import AssignIcon from "@material-ui/icons/Assignment";
+// import AssessIcon from "@material-ui/icons/Assessment";
 import { Link } from "react-router-dom";
 
 export default class NavBar extends React.Component {
@@ -27,7 +29,7 @@ export default class NavBar extends React.Component {
         <List>
           <ListItem button component={Link} to="/discover">
             <ListItemIcon>
-              <ShareIcon />
+              <Share />
             </ListItemIcon>
             <Typography align="left" className={classes.flex} variant="title">
               Discover
@@ -35,19 +37,19 @@ export default class NavBar extends React.Component {
           </ListItem>
           <ListItem button component={Link} to="/FlashcardLanding">
             <ListItemIcon>
-              <AssignIcon />
+              <Assignment />
             </ListItemIcon>
             <Typography variant="title">Flashcards</Typography>
           </ListItem>
           <ListItem button component={Link} to="/practiceQ">
             <ListItemIcon>
-              <AssessIcon />
+              <AccessTime />
             </ListItemIcon>
             <Typography variant="title">Practice</Typography>
           </ListItem>
           <ListItem button component={Link} to="/baseline">
             <ListItemIcon>
-              <AssignIcon />
+              <Assignment />
             </ListItemIcon>
             <Typography variant="title">Baseline Test</Typography>
           </ListItem>
@@ -56,7 +58,7 @@ export default class NavBar extends React.Component {
         <List>
           <ListItem button component={Link} to="/Flashcards">
             <ListItemIcon>
-              <AssignIcon />
+              <Assignment />
             </ListItemIcon>
             <Typography variant="title">Flashcard set testing</Typography>
           </ListItem>

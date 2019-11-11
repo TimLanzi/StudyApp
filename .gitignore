@@ -2,7 +2,9 @@
 *SAVE
 *10022018
 *save
-frontend/config/index.js
+# frontend/config/index.js
 node_modules/
 build/
 config/
+config.js
+.env

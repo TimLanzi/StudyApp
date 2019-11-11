@@ -1,13 +1,14 @@
 /*
   This file contains CSS classes and parameters to be injected into our frame using withStyles()
 */
-import { red, 
-         orange,
-         yellow,
-         lightGreen,
-         green,
-         blue } from 'material-ui/colors';
-import { createMuiTheme } from "@material-ui/core/styles";
+import { colors } from '@material-ui/core'
+const { red, orange, yellow, lightGreen, green, blue } = colors
+// import { red, 
+//          orange,
+//          yellow,
+//          lightGreen,
+//          green,
+//          blue } from 'material-ui/colors';
 const drawerWidth = 200; // Drawer Width Const is applied in styles.drawerPaper.width
 
 export default theme => ({

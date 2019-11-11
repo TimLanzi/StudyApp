@@ -2,18 +2,13 @@
 import React from "react";
 //import form from "material-ui/Form";
 import AuthService from "../../AuthService";
-import Typography from "material-ui/Typography";
-import Grid from "material-ui/Grid";
-import Paper from "material-ui/Paper";
+import { Typography, Card, CardActions, CardContent, Button } from '@material-ui/core';
+// import Typography from "material-ui/Typography";
 import { Link } from "react-router-dom";
-import ButtonIcon from "material-ui/Button";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
-import Card, { CardActions, CardContent } from "material-ui/Card";
-import Button from "material-ui/Button";
-import NewButton from '@material-ui/core/Button';
-import AddIcon from "@material-ui/icons/Add";
+// import Card, { CardActions, CardContent } from "material-ui/Card";
+// import Button from "material-ui/Button";
+// import NewButton from '@material-ui/core/Button';
+import { Add } from "@material-ui/icons";
 
 const Auth = new AuthService();
 var Latex = require('react-latex');
@@ -62,7 +57,7 @@ export default class Flashcard extends React.Component {
   };
 
   componentDidMount(){
-    fetch("http://165.227.198.233:3001/getFlashcard/" + Auth.getToken())
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/getFlashcard/${Auth.getToken()}`)
       .then(res => res.json())
       .then(contents => this.setState({contents}));
   }
@@ -112,9 +107,9 @@ export default class Flashcard extends React.Component {
           </CardActions>
         </Card>
         <br/>
-          <NewButton color="primary" button component={Link} to="/createFlashcard">
-            <AddIcon/> Add New Flashcard
-          </NewButton>
+          <Button color="primary" button component={Link} to="/createFlashcard">
+            <Add/> Add New Flashcard
+          </Button>
       </main>
       
     );
@@ -161,9 +156,9 @@ export default class Flashcard extends React.Component {
           </CardActions>
         </Card>
         <br/>
-          <NewButton color="primary" button component={Link} to="/createFlashcard">
-            <AddIcon/> Add New Flashcard
-          </NewButton>
+          <Button color="primary" button component={Link} to="/createFlashcard">
+            <Add/> Add New Flashcard
+          </Button>
       </main>
       
     );

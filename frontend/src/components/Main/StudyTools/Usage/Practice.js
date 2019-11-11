@@ -2,13 +2,13 @@ import "../../../../../node_modules/katex/dist/katex.min.css"
 import AuthService from  "../../AuthService";
 import React from "react";
 import { Link } from "react-router-dom";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
-import Button from "material-ui/Button";
-import Grid from "material-ui/Grid";
+import { Paper, Typography, RadioGroup, FormControl, FormLabel, Button, Grid } from "@material-ui/core";
+// import Typography from "@material-ui/core/Typography";
+// import RadioGroup from "@material-ui/core/RadioGroup";
+// import FormControl from "@material-ui/core/FormControl";
+// import FormLabel from "@material-ui/core/FormLabel";
+// import Button from "material-ui/Button";
+// import Grid from "material-ui/Grid";
 
 const Auth = new AuthService();
 
@@ -48,7 +48,7 @@ export default class PracticeQ extends React.Component {
 
     componentDidMount(){
 
-    fetch("http://165.227.198.233:3001/getProblem/" + this.state.problemNum )
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/getProblem/${this.state.problemNum}`)
       .then(res => res.json())
       .then(contents => this.setState({ contents}));
     }
@@ -69,7 +69,7 @@ export default class PracticeQ extends React.Component {
     if (this.state.questionSide)
     {
         console.log("before fetch");
-        fetch("http://165.227.198.233:3001/getProblem/"+this.getProblemNumber())
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/getProblem/${this.getProblemNumber()}`)
              .then(res => res.json())
              .then(contents => this.setContents(contents));
         console.log("after fetch");
@@ -79,7 +79,7 @@ export default class PracticeQ extends React.Component {
       console.log(Auth.getToken() + "'s answer for problem #" + (this.state.problemNum-1) + " is " + ans);
       var token = Auth.getToken();
       var problem = this.state.prevProb;
-      fetch("http://165.227.198.233:3001/postResult", {
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/postResult`, {
         headers: {"Content-Type": "application/json"},
         method: "POST",
         body: JSON.stringify({

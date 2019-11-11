@@ -1,10 +1,11 @@
 import React from 'react';
-import Typography from 'material-ui/Typography';
-import Grid from '@material-ui/core/Grid';
+// import Typography from 'material-ui/Typography';
+import { Grid, Typography } from '@material-ui/core';
 import StarRatingComponent from 'react-star-rating-component';
 import { Link } from 'react-router-dom';
 import AuthService from './AuthService';
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
+import jwtDecode from 'jwt-decode'
 const Auth = new AuthService();
 
 const styles = theme => ({
@@ -112,7 +113,7 @@ export default class Rankings extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://165.227.198.233:3001/getRanking/'+Auth.getToken())
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/getRanking/${Auth.getToken()}`)
             .then(res => res.json())
             .then(rankings => this.setState({rankings}))
             .then(() => this.setState({...this.state.rankings}))
@@ -129,7 +130,7 @@ export default class Rankings extends React.Component {
                 intermediate = (this.state.functions + this.state.word_problem + this.state.logarithm + this.state.geometry) / 4,
                 advanced = (this.state.trigonometry + this.state.geometry + this.state.precalc + this.state.calculus) / 4,
                 overall = (basic + intermediate + advanced) / 3;
-            let decoded = jwt.decode(Auth.getToken());
+            let decoded = jwtDecode(Auth.getToken());
             return (
                 <main className={classes.content} >
                     <div className={classes.toolbar} margin-top='-100px' />
@@ -203,7 +204,7 @@ export default class Rankings extends React.Component {
         }
         else if (this.state.loaded && this.state.probsCompleted < 15)
         {
-            let decoded = jwt.decode(Auth.getToken());
+            let decoded = jwtDecode(Auth.getToken());
 
             return (
             <main className={classes.content} >

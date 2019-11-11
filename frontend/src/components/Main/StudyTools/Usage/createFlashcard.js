@@ -2,17 +2,13 @@
 import React from "react";
 //import form from "material-ui/Form";
 import AuthService from "../../AuthService";
-import Typography from "material-ui/Typography";
-import Grid from "material-ui/Grid";
-import Paper from "material-ui/Paper";
+import { Typography, Grid, Paper, Button } from '@material-ui/core';
+// import Typography from "material-ui/Typography";
+// import Grid from "material-ui/Grid";
+// import Paper from "material-ui/Paper";
 import { Link } from "react-router-dom";
-import ButtonIcon from "material-ui/Button";
-import AddIcon from "@material-ui/icons/Backspace";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
-import Button from "material-ui/Button";
-import NewButton from '@material-ui/core/Button';
+// import Button from "material-ui/Button";
+// import NewButton from '@material-ui/core/Button';
 
 const Auth = new AuthService();
 
@@ -55,7 +51,7 @@ export default class createFlashcard extends React.Component {
     //var { setname } = this.props.location.state;
     var back = this.state.back;
     //console.log(setname);
-    fetch("http://165.227.198.233:3001/postFlashcard", {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/postFlashcard`, {
         headers:{"Content-Type":"application/json"},
         method:"POST",
         body: JSON.stringify({
@@ -74,7 +70,7 @@ export default class createFlashcard extends React.Component {
         <div className={classes.toolbar} />
         <Grid container spacing={24}>
         <Grid>
-          <NewButton color="primary" button component={Link} to="/Flashcard">
+          <Button color="primary" button component={Link} to="/Flashcard">
           <Button
               color="primary"
               variant="raised"
@@ -83,7 +79,7 @@ export default class createFlashcard extends React.Component {
             >   
               Back To Flashcards
             </Button>
-          </NewButton>
+          </Button>
           </Grid>
           <Grid item xs={6}>
         <form onSubmit={this.handleSubmit}>

@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { Typography,
-         Paper,
-         Button,
-         TextField,
-         FormLabel } from 'material-ui';
+// import { Typography,
+//          Paper,
+//          Button,
+//          TextField,
+//          FormLabel } from 'material-ui';
+import { Typography, Paper, Button, TextField, FormLabel } from '@material-ui/core';
 import AuthService from "./AuthService";
 
 class Login extends React.Component {
@@ -15,7 +16,7 @@ class Login extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.Auth = new AuthService("http://165.227.198.233:3001");
+    this.Auth = new AuthService(process.env.REACT_APP_BACKEND_URL);
   }
 
   static contextTypes = {

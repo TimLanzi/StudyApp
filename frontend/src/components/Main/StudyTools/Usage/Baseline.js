@@ -2,13 +2,13 @@ import "../../../../../node_modules/katex/dist/katex.min.css"
 import AuthService from  "../../AuthService";
 import React from "react";
 import { Link } from "react-router-dom";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
-import Button from "material-ui/Button";
-import Grid from "material-ui/Grid";
+import { Paper, Typography, RadioGroup, FormControl, FormLabel, Button, Grid } from "@material-ui/core";
+// import Typography from "@material-ui/core/Typography";
+// import RadioGroup from "@material-ui/core/RadioGroup";
+// import FormControl from "@material-ui/core/FormControl";
+// import FormLabel from "@material-ui/core/FormLabel";
+// import Button from "material-ui/Button";
+// import Grid from "material-ui/Grid";
 
 const Auth = new AuthService();
 
@@ -51,7 +51,7 @@ export default class Baseline extends React.Component {
     }
 
     componentDidMount(){
-      fetch("http://165.227.198.233:3001/getBaseline/")
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/getBaseline/`)
         .then(res => res.json())
         .then(problemNumbers => {
           var temp = [];
@@ -62,15 +62,15 @@ export default class Baseline extends React.Component {
           this.setProblemNumbers(temp);
         })
         .then(() => {
-          fetch("http://165.227.198.233:3001/getProblem/" + this.state.problemNumbers[this.state.problemNum].problem_id)
+          fetch(`${process.env.REACT_APP_BACKEND_URL}/getProblem/${this.state.problemNumbers[this.state.problemNum].problem_id}`)
              .then(res => res.json())
              .then(newContent => {
                this.setState({contents: newContent});
               });
         });
-      
+
     }
-  
+
 
   handleChange(event) {
     this.setState({ value: event.target.value });
@@ -90,7 +90,7 @@ export default class Baseline extends React.Component {
       if(this.state.problemNum < 15){
         //this.getProblemNumber();
         console.log("before fetch");
-        fetch("http://165.227.198.233:3001/getProblem/"+this.state.problemNumbers[this.state.problemNum].problem_id)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/getProblem/${this.state.problemNumbers[this.state.problemNum].problem_id}`)
               .then(res => res.json())
               .then(contents => this.setContents(contents))
               .then(() => this.getProblemNumber());
@@ -102,7 +102,7 @@ export default class Baseline extends React.Component {
       console.log(Auth.getToken() + "'s answer for problem #" + (this.state.problemNum-1) + " is " + ans);
       var token = Auth.getToken();
       var problem = this.state.prevProb;
-      fetch("http://165.227.198.233:3001/postResult", {
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/postResult`, {
         headers: {"Content-Type": "application/json"},
         method: "POST",
         body: JSON.stringify({
@@ -185,7 +185,7 @@ export default class Baseline extends React.Component {
                 className={classes.formControl}
               >
                 <FormLabel component="legend">
-                Grade youself based on how you feel you did. 
+                Grade youself based on how you feel you did.
                 </FormLabel>
                 <br />
                 <RadioGroup
@@ -204,7 +204,7 @@ export default class Baseline extends React.Component {
                         value="next"
                         onClick={() => this.toggleAns(1)}
                       >
-                      <h3> 1 </h3> 
+                      <h3> 1 </h3>
                       </Button>
                   </Grid>
                   <Grid item >
@@ -269,7 +269,7 @@ export default class Baseline extends React.Component {
                       <Button component={Link} to="/login">
                           Login or Register Now
                       </Button>
-                      </div> 
+                      </div>
                       ))}
                   </Typography>
               </main>
@@ -289,7 +289,7 @@ export default class Baseline extends React.Component {
                   <Button component={Link} to="/login">
                       Login or Register Now
                   </Button>
-                  </div> 
+                  </div>
                   ))}
               </Typography>
           </main>

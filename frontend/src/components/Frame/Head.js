@@ -1,15 +1,17 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import AppBar from "material-ui/AppBar";
-import Toolbar from "material-ui/Toolbar";
-import Typography from "material-ui/Typography";
-import IconButton from "material-ui/IconButton";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import Menu, { MenuItem } from "material-ui/Menu";
+// import AppBar from "material-ui/AppBar";
+// import Toolbar from "material-ui/Toolbar";
+// import Typography from "material-ui/Typography";
+// import IconButton from "material-ui/IconButton";
+// import AccountCircle from "@material-ui/icons/AccountCircle";
+// import Menu, { MenuItem } from "material-ui/Menu";
 import { Link } from "react-router-dom";
-import HeadIcon from "@material-ui/icons/Public";
-import { withStyles } from "@material-ui/core/styles";
-import Button from "material-ui/Button";
+// import HeadIcon from "@material-ui/icons/Public";
+import { AccountCircle } from '@material-ui/icons'
+// import { withStyles } from "@material-ui/core/styles";
+// import Button from "material-ui/Button";
+import { AppBar, Toolbar, Typography, IconButton, Button} from '@material-ui/core';
 import AuthService from "../Main/AuthService";
 const Auth = new AuthService();
 
@@ -64,7 +66,7 @@ class Head extends React.Component {
               component={Link}
               to="/"
             >
-              <HeadIcon />
+              <AccountCircle />
              <h3> VOITHOS </h3>
             </IconButton>
             <Typography
@@ -128,7 +130,7 @@ class Head extends React.Component {
               component={Link}
               to="/"
             >
-              <HeadIcon />
+              <AccountCircle />
              <h3> VOITHOS </h3>
             </IconButton>
             <Typography
