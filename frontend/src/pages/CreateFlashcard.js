@@ -1,14 +1,8 @@
 //createFlashcard.js
 import React from "react";
-//import form from "material-ui/Form";
-import AuthService from "../../../../utils/AuthService";
+import AuthService from "../utils/AuthService";
 import { Typography, Grid, Paper, Button } from '@material-ui/core';
-// import Typography from "material-ui/Typography";
-// import Grid from "material-ui/Grid";
-// import Paper from "material-ui/Paper";
 import { Link } from "react-router-dom";
-// import Button from "material-ui/Button";
-// import NewButton from '@material-ui/core/Button';
 
 const Auth = new AuthService();
 

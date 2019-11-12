@@ -47,7 +47,7 @@ export default theme => ({
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing(3),
     minWidth: 0 // So the Typography noWrap works
   },
   menuButton: {
@@ -57,7 +57,7 @@ export default theme => ({
   toolbar: theme.mixins.toolbar,
   paper: {
     //flexGrow: 1,
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary
   },

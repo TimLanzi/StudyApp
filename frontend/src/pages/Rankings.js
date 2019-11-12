@@ -215,7 +215,7 @@ export default class Rankings extends React.Component {
                     <Grid container wrap="nowrap" spacing={40}>
                         <Grid item xs={12} sm={6}>
                         <div align="left">
-                            <h4>You haven't done enough problems for us to accurately calculate your rankings yet. Keep working on our practice page <Link to="/practiceQ">here</Link>!</h4>
+                            <h4>You haven't done enough problems for us to accurately calculate your rankings yet. Keep working on our practice page <Link to="/practice">here</Link>!</h4>
 
                         </div>
                         </Grid>

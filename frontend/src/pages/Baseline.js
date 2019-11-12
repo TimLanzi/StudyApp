@@ -1,18 +1,11 @@
-import "../../../../../node_modules/katex/dist/katex.min.css"
-import AuthService from  "../../../../utils/AuthService";
+// import "../styles/katex.min.css"
+import AuthService from  "../utils/AuthService";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Paper, Typography, RadioGroup, FormControl, FormLabel, Button, Grid } from "@material-ui/core";
-// import Typography from "@material-ui/core/Typography";
-// import RadioGroup from "@material-ui/core/RadioGroup";
-// import FormControl from "@material-ui/core/FormControl";
-// import FormLabel from "@material-ui/core/FormLabel";
-// import Button from "material-ui/Button";
-// import Grid from "material-ui/Grid";
+import Latex from 'react-latex';
 
 const Auth = new AuthService();
-
-var Latex = require('react-latex');
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -124,7 +117,7 @@ export default class Baseline extends React.Component {
         <main className={classes.content} Style="styles">
           <div className={classes.toolbar} margin-top="-100px" />
           <Paper className={classes.paper}>
-            <Typography variant="headline" align="center" component="h3">
+            <Typography variant="h5" align="center" component="h3">
               {this.state.contents.map(content => (
                 <div key={content.id}>
                   <Latex>{content.question}</Latex>
@@ -169,7 +162,7 @@ export default class Baseline extends React.Component {
         <main className={classes.content} Style="style s">
           <div className={classes.toolbar} margin-top="-100px" />
           <Paper className={classes.paper}>
-            <Typography variant="headline" align="center" component="h3">
+            <Typography variant="h5" align="center" component="h3">
               {this.state.contents.map(content => (
                 <div key={content.id}>
                   <Latex>{"$"+content.solution+"$"}</Latex>
@@ -260,7 +253,7 @@ export default class Baseline extends React.Component {
           return (
             <main className={classes.content} Style="styles">
               <div className={classes.toolbar} margin-top="-100px" />
-                  <Typography variant="headline" align="center" component="h3">
+                  <Typography variant="h5" align="center" component="h3">
                       {this.state.contents.map(content => (
                       <div key={content.id}>
                           You are not logged in. Log in or create an account to start practicing!
@@ -280,7 +273,7 @@ export default class Baseline extends React.Component {
       return (
         <main className={classes.content} Style="styles">
           <div className={classes.toolbar} margin-top="-100px" />
-              <Typography variant="headline" align="center" component="h3">
+              <Typography variant="h5" align="center" component="h3">
                   {this.state.contents.map(content => (
                   <div key={content.id}>
                       You've completed the Baseline Exam!

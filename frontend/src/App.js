@@ -4,12 +4,6 @@
 import React from "react";
 import { Header, NavBar } from './components/layout';
 import * as Pages from './pages';
-import Flashcard from "./components/Main/StudyTools/Usage/Flashcard";
-import Practice from "./components/Main/StudyTools/Usage/Practice";
-import CreateFlashcard from "./components/Main/StudyTools/Usage/createFlashcard.js";
-import CreateFlashcardSet from "./components/Main/StudyTools/Usage/createFlashcardSet.js";
-import FlashcardLanding from "./components/Main/StudyTools/Landings/FlashcardLanding";
-import Baseline from "./components/Main/StudyTools/Usage/Baseline";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { withStyles } from "@material-ui/core";
 import PropTypes from "prop-types";
@@ -26,7 +20,7 @@ class App extends React.Component {
   constructor(props) {
     super(props); // Calls the constructor for the parent class (React.Component)
     this.state = {
-      //Sets state of the Frame component to have no active user.
+      //Sets state of the App component to have no active user.
       username: null
     };
   }
@@ -43,8 +37,8 @@ class App extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <Router>
-        <div className={classes.root}>
+      <div className={classes.root}>
+        <Router>
           <Header
             history={this.props.history}
             className={classes.appBar}
@@ -57,50 +51,48 @@ class App extends React.Component {
           />
           
           <Switch>
-            <div className={classes.root}>
-              <Route exact path="/">
-                <Pages.About classes={classes} />
-              </Route>
+            <Route exact path="/">
+              <Pages.About classes={classes} />
+            </Route>
 
-              <Route path='/flashcards'>
-                <FlashcardLanding classes={classes} />
-              </Route>
-              
-              <Route path='/flashcardSet/:id'>
-                <Flashcard classes={classes} />
-              </Route>
+            <Route path='/flashcards'>
+              <Pages.FlashcardLanding classes={classes} />
+            </Route>
+            
+            <Route path='/flashcardSet/:id'>
+              <Pages.Flashcard classes={classes} />
+            </Route>
 
-              <Route path='/practice'>
-                <Practice classes={classes} />
-              </Route>
-              
-              <Route path='/createFlashcard'>
-                <CreateFlashcard classes={classes} />
-              </Route>
+            <Route path='/practice'>
+              <Pages.Practice classes={classes} />
+            </Route>
+            
+            <Route path='/createFlashcard'>
+              <Pages.CreateFlashcard classes={classes} />
+            </Route>
 
-              <Route path='/createFlashcardSet'>
-                <CreateFlashcardSet classes={classes} />
-              </Route>
+            <Route path='/createFlashcardSet'>
+              <Pages.CreateFlashcardSet classes={classes} />
+            </Route>
 
-              <Route path='/baseline'>
-                <Baseline classes={classes} />
-              </Route>
+            <Route path='/baseline'>
+              <Pages.Baseline classes={classes} />
+            </Route>
 
-              <Route path='/rankings'>
-                <Pages.Rankings classes={classes} />
-              </Route>
+            <Route path='/rankings'>
+              <Pages.Rankings classes={classes} />
+            </Route>
 
-              <Route path='/login'>
-                <Pages.Login history={this.props.history} classes={classes} />
-              </Route>
+            <Route path='/login'>
+              <Pages.Login history={this.props.history} classes={classes} />
+            </Route>
 
-              <Route path='/account'>
-                <Pages.Account classes={classes} />
-              </Route>
-            </div>
+            <Route path='/account'>
+              <Pages.Account classes={classes} />
+            </Route>
           </Switch>
-        </div>
-      </Router>
+        </Router>
+      </div>
     );
   }
 }

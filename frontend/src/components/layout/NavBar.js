@@ -31,7 +31,7 @@ export default class NavBar extends React.Component {
             <ListItemIcon>
               <Share />
             </ListItemIcon>
-            <Typography align="left" className={classes.flex} variant="title">
+            <Typography align="left" className={classes.flex} variant="inherit">
               Discover
             </Typography>
           </ListItem>
@@ -39,19 +39,19 @@ export default class NavBar extends React.Component {
             <ListItemIcon>
               <Assignment />
             </ListItemIcon>
-            <Typography variant="title">Flashcards</Typography>
+            <Typography variant="inherit">Flashcards</Typography>
           </ListItem>
-          <ListItem button component={Link} to="/practiceQ">
+          <ListItem button component={Link} to="/practice">
             <ListItemIcon>
               <AccessTime />
             </ListItemIcon>
-            <Typography variant="title">Practice</Typography>
+            <Typography variant="inherit">Practice</Typography>
           </ListItem>
           <ListItem button component={Link} to="/baseline">
             <ListItemIcon>
               <Assignment />
             </ListItemIcon>
-            <Typography variant="title">Baseline Test</Typography>
+            <Typography variant="inherit">Baseline Test</Typography>
           </ListItem>
         </List>
         <Divider />
@@ -60,7 +60,7 @@ export default class NavBar extends React.Component {
             <ListItemIcon>
               <Assignment />
             </ListItemIcon>
-            <Typography variant="title">Flashcard set testing</Typography>
+            <Typography variant="inherit">Flashcard set testing</Typography>
           </ListItem>
          {/* <ListItem button>
             <Typography variant="button">Button 5</Typography>

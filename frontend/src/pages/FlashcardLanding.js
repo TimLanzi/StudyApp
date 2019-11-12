@@ -1,16 +1,8 @@
 import React from "react";
-// import Typography from "material-ui/Typography";
-// import Grid from "material-ui/Grid";
-// import Paper from "material-ui/Paper";
-// import Button from "material-ui/Button";
-// import ButtonIcon from "material-ui/Button";
-
 import { Typography, Grid, Paper, Button, IconButton } from '@material-ui/core';
 import { Add, Backup } from '@material-ui/icons';
-// import AddIcon from "@material-ui/icons/NoteAdd";
-// import SetIcon from "@material-ui/icons/Ballot";
 import { Link } from "react-router-dom";
-import AuthService from '../../../../utils/AuthService';
+import AuthService from '../utils/AuthService';
 const Auth =  new AuthService();
 
 export class FlashcardLanding extends React.Component {
@@ -75,7 +67,7 @@ export class FlashcardLanding extends React.Component {
       return (
          <main className={classes.content} Style="styles">
            <div className={classes.toolbar} margin-top="-100px" />
-               <Typography variant="headline" align="center" component="h3">
+               <Typography variant="h5" align="center" component="h3">
                       <strong>You are not logged in. Log in or create an account to start practicing!</strong>
                    <br />
                    <br />

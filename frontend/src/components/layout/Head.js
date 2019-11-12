@@ -49,7 +49,7 @@ class Head extends React.Component {
         <AppBar className={this.props.className}>
           <Toolbar>
             <IconButton
-              variant="title"
+              variant="h3"
               color="inherit"
               className={classes.logo}
               component={Link}
@@ -59,9 +59,9 @@ class Head extends React.Component {
              <h3> VOITHOS </h3>
             </IconButton>
             <Typography
-              component="h1"
-              variant="h1"
-              color="white"
+              component="h3"
+              variant="h3"
+              color="initial"
               align="left"
               className={classes.flex}
             >
@@ -113,7 +113,7 @@ class Head extends React.Component {
         <AppBar className={this.props.className}>
           <Toolbar>
             <IconButton
-              variant="title"
+              variant="h3"
               color="inherit"
               className={classes.logo}
               component={Link}
@@ -123,10 +123,10 @@ class Head extends React.Component {
              <h3> VOITHOS </h3>
             </IconButton>
             <Typography
-              component="h1"
-              variant="h1"
+              component="h3"
+              variant="h3"
               align="left"
-              color="white"
+              color="initial"
               className={classes.flex}
             >
              {/* <h2> StudyApp </h2>*/}

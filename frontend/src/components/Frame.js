@@ -1,5 +1,6 @@
 /*
-  This file composes the central components of our application into a Frame that will dynamically render the webpage.
+DEPRICATED
+This file composes the central components of our application into a Frame that will dynamically render the webpage.
 */
 import Head from "./layout/Head";
 import Main from "../App";

@@ -1,6 +1,5 @@
 /*
-  This file is used to render our entire application inside our "Frame" and
-  does so inside of a browser router inorder to allow routing through the DOM
+This file is used to render our entire application
 */
 
 import React from "react";

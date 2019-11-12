@@ -1,7 +1,7 @@
 //createFlashcardSet.js
 import React from "react";
 //import form from "material-ui/Form";
-import AuthService from "../../../../utils/AuthService";
+import AuthService from "../utils/AuthService";
 import { Typography, Grid, Paper, Button } from '@material-ui/core';
 // import Typography from "material-ui/Typography";
 // import Grid from "material-ui/Grid";
